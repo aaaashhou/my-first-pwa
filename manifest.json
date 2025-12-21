@@ -2,7 +2,7 @@
   "name": "我的笔记本",
   "short_name": "笔记",
   "description": "一个简单的本地笔记应用",
-  "start_url": "/",
+  "start_url": "/my-first-pwa/",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#667eea",
@@ -14,3 +14,4 @@
     }
   ]
 }
+
