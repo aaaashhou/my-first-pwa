@@ -22,7 +22,7 @@ saveBtn.addEventListener('click', function() {
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js');
+  navigator.serviceWorker.register('./sw.js');
 }
 ```
 
@@ -36,4 +36,5 @@ if ('serviceWorker' in navigator) {
    📄 app.js
    📄 manifest.json  ← 新加
    📄 sw.js          ← 新加
+
    🖼️ icon.png       ← 可选
