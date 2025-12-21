@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一个 PWA</title>
+    
+    <!-- 连接到样式表 -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- 连接到 manifest.json -->
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 我的笔记本</h1>
+        
+        <!-- 输入框：让用户写东西 -->
+        <input type="text" id="noteInput" placeholder="写点什么吧...">
+        
+        <!-- 按钮：保存用户写的内容 -->
+        <button id="saveBtn">保存</button>
+        
+        <!-- 显示区域：把保存的内容显示出来 -->
+        <div id="noteDisplay"></div>
+    </div>
+    
+    <!-- 连接到 JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
