@@ -21,20 +21,3 @@ saveBtn.addEventListener('click', function() {
     }
 });
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js');
-}
-```
-
----
-
-## 📂 现在你的文件夹
-```
-📁 我的第一个PWA
-   📄 index.html
-   📄 style.css
-   📄 app.js
-   📄 manifest.json  ← 新加
-   📄 sw.js          ← 新加
-
-   🖼️ icon.png       ← 可选
