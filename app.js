@@ -16,6 +16,7 @@ function showToast(msg) {
     setTimeout(() => { toast.style.display = 'none'; }, 2000);
 }
 
+// 只需找到 renderList 函数替换即可，或者全选替换
 function renderList() {
     noteList.innerHTML = '';
     notes.forEach(note => {
@@ -23,9 +24,9 @@ function renderList() {
         li.innerHTML = `
             <div class="note-item-header">
                 <strong style="cursor:pointer" onclick="showDetail(${note.id})">📖 ${note.title}</strong>
-                <button style="width:auto; padding:4px 8px; background:#ff4d4d; font-size:12px;" onclick="deleteNote(${note.id})">删除</button>
+                <button class="del-btn" onclick="deleteNote(${note.id})">删除</button>
             </div>
-            <span class="note-time">📅 ${note.createdAt}</span>
+            <div class="note-time">📅 ${note.createdAt}</div>
         `;
         noteList.appendChild(li);
     });
@@ -64,3 +65,4 @@ function deleteNote(id) {
 
 viewListBtn.onclick = () => { writeSection.style.display = 'none'; readSection.style.display = 'block'; renderList(); };
 goBackBtn.onclick = () => { writeSection.style.display = 'block'; readSection.style.display = 'none'; };
+
