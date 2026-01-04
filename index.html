@@ -24,8 +24,25 @@
         <!-- 显示区域：把保存的内容显示出来 -->
         <div id="noteDisplay"></div>
     </div>
+
+    <input type="text" id="note-title" placeholder="标题（可选）">
+<textarea id="note-content" placeholder="内容（必填）"></textarea>
+<button id="save-btn">保存笔记</button>
+
+<hr>
+
+<h3>往期记录</h3>
+<ul id="note-list"></ul>
+
+<div id="note-detail" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; display: none;">
+    <h2 id="detail-title"></h2>
+    <small id="detail-time"></small>
+    <p id="detail-content"></p>
+    <button onclick="document.getElementById('note-detail').style.display='none'">关闭</button>
+</div>
     
     <!-- 连接到 JavaScript -->
     <script src="app.js"></script>
 </body>
+
 </html>
