@@ -3,72 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的第一个 PWA</title>
-    
-    <!-- 连接到样式表 -->
+    <title>我的笔记本</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- 连接到 manifest.json -->
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="container">
         <h1>📝 我的笔记本</h1>
-        
-        <!-- 输入框：让用户写东西 -->
-        <input type="text" id="noteInput" placeholder="写点什么吧...">
-        
-        <!-- 按钮：保存用户写的内容 -->
-        <button id="saveBtn">保存</button>
-        
-        <!-- 显示区域：把保存的内容显示出来 -->
-        <div id="noteDisplay"></div>
+
+        <div id="write-section">
+            <input type="text" id="note-title" placeholder="标题（必填）">
+            <textarea id="note-content" placeholder="内容（选填）" rows="5"></textarea>
+            <div class="btn-group">
+                <button id="save-btn">保存笔记</button>
+                <button id="view-list-btn">查看往期记录</button>
+            </div>
+        </div>
+
+        <div id="read-section" style="display: none;">
+            <h3>往期记录</h3>
+            <ul id="note-list"></ul>
+            <button id="go-back-btn">返回写入</button>
+            
+            <div id="note-detail" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; display: none;">
+                <h2 id="detail-title"></h2>
+                <small id="detail-time"></small>
+                <p id="detail-content" style="white-space: pre-wrap;"></p>
+                <button onclick="document.getElementById('note-detail').style.display='none'">关闭详情</button>
+            </div>
+        </div>
     </div>
-
-    <input type="text" id="note-title" placeholder="标题（可选）">
-<textarea id="note-content" placeholder="内容（必填）"></textarea>
-<button id="save-btn">保存笔记</button>
-
-<hr>
-
-<h3>往期记录</h3>
-<ul id="note-list"></ul>
-
-<div id="note-detail" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; display: none;">
-    <h2 id="detail-title"></h2>
-    <small id="detail-time"></small>
-    <p id="detail-content"></p>
-    <button onclick="document.getElementById('note-detail').style.display='none'">关闭</button>
-</div>
-
-    <div id="nav-controls">
-    <button id="view-list-btn">查看记录</button>
-    <button id="go-back-btn" style="display: none;">返回写入</button>
-</div>
-
-<hr>
-
-<div id="write-section">
-    <input type="text" id="note-title" placeholder="标题（可选）">
-    <textarea id="note-content" placeholder="内容（必填）"></textarea>
-    <button id="save-btn">保存笔记</button>
-</div>
-
-<div id="read-section" style="display: none;">
-    <h3>往期记录</h3>
-    <ul id="note-list"></ul>
-    
-    <div id="note-detail" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; display: none;">
-        <h2 id="detail-title"></h2>
-        <small id="detail-time"></small>
-        <p id="detail-content"></p>
-        <button onclick="document.getElementById('note-detail').style.display='none'">关闭</button>
-    </div>
-</div>
-    
-    <!-- 连接到 JavaScript -->
     <script src="app.js"></script>
 </body>
-
 </html>
-
