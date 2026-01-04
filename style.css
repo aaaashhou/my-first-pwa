@@ -1,76 +1,15 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: "微软雅黑", sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* 确保垂直居中 */
-    padding: 20px;
-}
-
-.container {
-    background: rgba(255, 255, 255, 0.98);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    width: 100%;
-    max-width: 400px;
-}
-
-h1 { text-align: center; color: #4a5ab5; margin-bottom: 20px; }
-
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    outline: none;
-}
-
-.btn-group { display: flex; gap: 10px; }
-
-button {
-    flex: 1; padding: 12px;
-    background: #667eea; color: white;
-    border: none; border-radius: 10px;
-    cursor: pointer; transition: 0.3s;
-}
-
-.alt-btn { background: #764ba2; }
-
-/* 列表条目美化 */
-#note-list li {
-    background: #f0f2ff; /* 浅紫色背景区分 */
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.note-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.note-time { font-size: 11px; color: #999; }
-
-/* 弹窗提示 */
-.toast {
-    position: fixed; top: 20px;
-    background: rgba(0,0,0,0.7); color: white;
-    padding: 10px 20px; border-radius: 20px;
-    display: none; z-index: 100;
-}
-
-.detail-card {
-    margin-top: 15px; padding: 15px;
-    background: #fff; border: 1px solid #eee;
-    border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+// 只需找到 renderList 函数替换即可，或者全选替换
+function renderList() {
+    noteList.innerHTML = '';
+    notes.forEach(note => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="note-item-header">
+                <strong style="cursor:pointer" onclick="showDetail(${note.id})">📖 ${note.title}</strong>
+                <button class="del-btn" onclick="deleteNote(${note.id})">删除</button>
+            </div>
+            <div class="note-time">📅 ${note.createdAt}</div>
+        `;
+        noteList.appendChild(li);
+    });
 }
