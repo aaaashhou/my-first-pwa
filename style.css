@@ -1,4 +1,4 @@
-/* 重置默认样式，让所有浏览器显示一致 */
+/* 重置样式 */
 * {
     margin: 0;
     padding: 0;
@@ -11,52 +11,107 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding: 20px; /* 移动端留点缝隙 */
 }
 
 .container {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    width: 90%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    width: 100%;
     max-width: 400px;
+    height: fit-content;
 }
 
 h1 {
     text-align: center;
-    color: #667eea;
+    color: #4a5ab5;
     margin-bottom: 20px;
+    font-size: 24px;
 }
 
-#noteInput {
+/* 输入框通用样式 */
+input[type="text"], textarea {
     width: 100%;
     padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.3s;
 }
 
-#saveBtn {
-    width: 100%;
+input:focus, textarea:focus {
+    border-color: #667eea;
+}
+
+/* 按钮组 */
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
     padding: 12px;
     background: #667eea;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 10px;
+    font-size: 15px;
     cursor: pointer;
+    transition: transform 0.1s, background 0.3s;
 }
 
-#saveBtn:hover {
-    background: #5568d3;
+button:active {
+    transform: scale(0.98);
 }
 
-#noteDisplay {
-    margin-top: 20px;
-    padding: 15px;
-    background: #f5f5f5;
+#view-list-btn, #go-back-btn {
+    background: #764ba2;
+}
+
+/* 列表美化 */
+#note-list {
+    list-style: none;
+    margin-top: 15px;
+}
+
+#note-list li {
+    background: #f9f9f9;
+    padding: 12px;
     border-radius: 8px;
-    min-height: 50px;
+    margin-bottom: 10px;
+    border-left: 4px solid #667eea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+#note-list li span {
+    font-size: 14px;
+    color: #333;
+    flex: 1;
+}
+
+#note-list li button {
+    flex: none;
+    background: #ff4d4d;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+/* 详情弹窗样式 */
+#note-detail {
+    background: white;
+    border: 1px solid #eee !important;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#detail-title { color: #4a5ab5; margin-bottom: 5px; }
+#detail-time { color: #999; font-size: 12px; display: block; margin-bottom: 10px; }
+#detail-content { font-size: 14px; color: #555; line-height: 1.6; }
