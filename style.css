@@ -1,117 +1,76 @@
-/* 重置样式 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: "微软雅黑", sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
-    padding: 20px; /* 移动端留点缝隙 */
+    align-items: center; /* 确保垂直居中 */
+    padding: 20px;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 25px;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     width: 100%;
     max-width: 400px;
-    height: fit-content;
 }
 
-h1 {
-    text-align: center;
-    color: #4a5ab5;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
+h1 { text-align: center; color: #4a5ab5; margin-bottom: 20px; }
 
-/* 输入框通用样式 */
-input[type="text"], textarea {
+input, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 10px;
     margin-bottom: 15px;
-    font-size: 15px;
     outline: none;
-    transition: border 0.3s;
 }
 
-input:focus, textarea:focus {
-    border-color: #667eea;
-}
-
-/* 按钮组 */
-.btn-group {
-    display: flex;
-    gap: 10px;
-}
+.btn-group { display: flex; gap: 10px; }
 
 button {
-    flex: 1;
-    padding: 12px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    cursor: pointer;
-    transition: transform 0.1s, background 0.3s;
+    flex: 1; padding: 12px;
+    background: #667eea; color: white;
+    border: none; border-radius: 10px;
+    cursor: pointer; transition: 0.3s;
 }
 
-button:active {
-    transform: scale(0.98);
-}
+.alt-btn { background: #764ba2; }
 
-#view-list-btn, #go-back-btn {
-    background: #764ba2;
-}
-
-/* 列表美化 */
-#note-list {
-    list-style: none;
-    margin-top: 15px;
-}
-
+/* 列表条目美化 */
 #note-list li {
-    background: #f9f9f9;
-    padding: 12px;
-    border-radius: 8px;
+    background: #f0f2ff; /* 浅紫色背景区分 */
+    padding: 15px;
+    border-radius: 12px;
     margin-bottom: 10px;
-    border-left: 4px solid #667eea;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.note-item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#note-list li span {
-    font-size: 14px;
-    color: #333;
-    flex: 1;
+.note-time { font-size: 11px; color: #999; }
+
+/* 弹窗提示 */
+.toast {
+    position: fixed; top: 20px;
+    background: rgba(0,0,0,0.7); color: white;
+    padding: 10px 20px; border-radius: 20px;
+    display: none; z-index: 100;
 }
 
-#note-list li button {
-    flex: none;
-    background: #ff4d4d;
-    padding: 5px 10px;
-    font-size: 12px;
-    margin-left: 10px;
+.detail-card {
+    margin-top: 15px; padding: 15px;
+    background: #fff; border: 1px solid #eee;
+    border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-
-/* 详情弹窗样式 */
-#note-detail {
-    background: white;
-    border: 1px solid #eee !important;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-#detail-title { color: #4a5ab5; margin-bottom: 5px; }
-#detail-time { color: #999; font-size: 12px; display: block; margin-bottom: 10px; }
-#detail-content { font-size: 14px; color: #555; line-height: 1.6; }
