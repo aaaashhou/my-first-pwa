@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的笔记本</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
+    <div id="toast" class="toast"></div>
+
     <div class="container">
         <h1>📝 我的笔记本</h1>
 
@@ -16,20 +17,22 @@
             <textarea id="note-content" placeholder="内容（选填）" rows="5"></textarea>
             <div class="btn-group">
                 <button id="save-btn">保存笔记</button>
-                <button id="view-list-btn">查看往期记录</button>
+                <button id="view-list-btn" class="alt-btn">查看记录</button>
             </div>
         </div>
 
         <div id="read-section" style="display: none;">
             <h3>往期记录</h3>
-            <ul id="note-list"></ul>
-            <button id="go-back-btn">返回写入</button>
+            <div class="list-wrapper">
+                <ul id="note-list"></ul>
+            </div>
+            <button id="go-back-btn" class="alt-btn">返回写入</button>
             
-            <div id="note-detail" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; display: none;">
+            <div id="note-detail" class="detail-card" style="display: none;">
                 <h2 id="detail-title"></h2>
                 <small id="detail-time"></small>
-                <p id="detail-content" style="white-space: pre-wrap;"></p>
-                <button onclick="document.getElementById('note-detail').style.display='none'">关闭详情</button>
+                <p id="detail-content"></p>
+                <button class="close-btn" onclick="document.getElementById('note-detail').style.display='none'">关闭详情</button>
             </div>
         </div>
     </div>
