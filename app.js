@@ -136,14 +136,14 @@ window.onload = () => {
         document.getElementById('push-time').textContent = randomNote.createdAt;
         modal.style.display = 'flex';
 
-        // 点击“看看”
+       // 点击“看看”
         document.getElementById('push-view-btn').onclick = () => {
             modal.style.display = 'none';
-            showDetail(randomNote.id); // 复用之前的详情展示函数
-            // 顺便切换到记录页面展示详情
+            // 切换到展示区域，但标题设为“回顾”，方便上面那个判断函数识别
             writeSection.style.display = 'none';
             readSection.style.display = 'block';
-            document.getElementById('list-type-title').textContent = '开心！ 的回顾';
+            document.getElementById('list-type-title').textContent = '✨ 开心时刻回顾'; 
+            showDetail(randomNote.id); 
         };
 
         // 点击“好的”
@@ -152,4 +152,5 @@ window.onload = () => {
         };
     }
 };
+
 
