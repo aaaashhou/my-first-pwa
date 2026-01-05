@@ -117,7 +117,7 @@ function setupClickToOpen(element, note, targetClicks) {
     };
 }
 
-// --- 详情展示 ---
+// --- 详情展示（改为全屏并调整按钮逻辑） ---
 function showDetail(id) {
     const note = notes.find(n => n.id === id);
     if (!note) return;
@@ -127,22 +127,52 @@ function showDetail(id) {
     document.getElementById('detail-content').textContent = note.content;
 
     const footer = document.getElementById('detail-footer');
-    footer.innerHTML = ''; // 清空按钮
+    footer.innerHTML = ''; 
 
     if (note.category === '不开心') {
         footer.innerHTML = `
-            <div class="destroy-group" style="display:flex; gap:10px; margin-top:15px; width:100%;">
+            <div class="destroy-group" style="display:flex; gap:10px; width:100%;">
                 <button onclick="transferToTrash(${note.id}, '🔥')">🔥</button>
                 <button onclick="transferToTrash(${note.id}, '🔨')">🔨</button>
                 <button onclick="transferToTrash(${note.id}, '✂️')">✂️</button>
             </div>
+            <button onclick="closeDetail()" style="margin-top:20px; background:#ccc; width:100%;">暂不销毁</button>
         `;
     } else if (note.category === '垃圾桶') {
-        footer.innerHTML = `<button onclick="finalDelete(${note.id})" style="background:red; width:100%; border-radius:50px; margin-top:15px;">彻底粉碎</button>`;
+        footer.innerHTML = `
+            <button class="final-del-btn" onclick="finalDelete(${note.id})">彻底粉碎</button>
+            <button onclick="closeDetail()" style="margin-top:20px; background:#ccc; width:100%;">还没想好</button>
+        `;
     } else {
-        footer.innerHTML = `<button class="close-btn" onclick="closeDetail()" style="margin-top:15px; width:100%;">关闭详情</button>`;
+        footer.innerHTML = `<button class="close-btn" onclick="closeDetail()" style="width:100%;">关闭详情</button>`;
     }
-    document.getElementById('note-detail').style.display = 'block';
+    document.getElementById('note-detail').style.display = 'flex'; // 改为 flex 布局
+}
+
+// --- 转移并直接跳回主页 ---
+function transferToTrash(id, action) {
+    const idx = notes.findIndex(n => n.id === id);
+    notes[idx].category = '垃圾桶';
+    localStorage.setItem('my_notes', JSON.stringify(notes));
+    showToast('已将其 ' + action);
+    
+    // 关键：销毁后直接关闭详情并回到写入主页
+    document.getElementById('note-detail').style.display = 'none';
+    readSection.style.display = 'none';
+    writeSection.style.display = 'block';
+}
+
+// --- 粉碎并直接跳回主页 ---
+function finalDelete(id) {
+    if(!confirm('彻底粉碎后无法找回，确定吗？')) return;
+    notes = notes.filter(n => n.id !== id);
+    localStorage.setItem('my_notes', JSON.stringify(notes));
+    
+    // 关键：粉碎后直接关闭详情并回到写入主页
+    document.getElementById('note-detail').style.display = 'none';
+    readSection.style.display = 'none';
+    writeSection.style.display = 'block';
+    showToast('已彻底粉碎');
 }
 
 // --- 功能性逻辑 ---
@@ -201,3 +231,4 @@ window.onload = () => {
         document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
     }
 };
+
