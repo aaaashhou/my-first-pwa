@@ -93,3 +93,42 @@ button {
 #push-title { font-size: 18px; color: #333; margin-bottom: 5px; }
 #push-time { color: #999; font-size: 12px; margin-bottom: 20px; display: block; }
 .push-footer { display: flex; gap: 10px; }
+
+/* 不开心条目的特殊样式 */
+.unhappy-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none; /* 防止长按选中文本 */
+}
+
+/* 进度条背景 */
+.hold-progress {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: rgba(255, 77, 77, 0.2); /* 淡淡的红色进度 */
+    width: 0%;
+    transition: width 0.1s linear;
+    z-index: 0;
+}
+
+.unhappy-item .note-item-header, 
+.unhappy-item .note-time {
+    position: relative;
+    z-index: 1; /* 确保文字在进度条上方 */
+}
+
+/* 详情页销毁按钮组 */
+.destroy-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.destroy-btn {
+    flex: 1;
+    font-size: 20px;
+    height: 50px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
