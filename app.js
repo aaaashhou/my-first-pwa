@@ -1,17 +1,24 @@
+// --- 基础元素获取 ---
 const titleInput = document.getElementById('note-title');
 const contentInput = document.getElementById('note-content');
 const saveBtn = document.getElementById('save-btn');
 const noteList = document.getElementById('note-list');
 const toast = document.getElementById('toast');
-
 const writeSection = document.getElementById('write-section');
 const categorySection = document.getElementById('category-section');
 const readSection = document.getElementById('read-section');
 
 let selectedCategory = ""; 
 let notes = JSON.parse(localStorage.getItem('my_notes') || '[]');
+let decayTimer = null;
 
-// 分类选择
+// --- 弹窗提示 ---
+function showToast(msg) {
+    toast.textContent = msg; toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 2000);
+}
+
+// --- 分类按钮点击 ---
 document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.onclick = () => {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -20,12 +27,7 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
     };
 });
 
-function showToast(msg) {
-    toast.textContent = msg; toast.style.display = 'block';
-    setTimeout(() => { toast.style.display = 'none'; }, 2000);
-}
-
-// 保存
+// --- 保存笔记 ---
 saveBtn.onclick = () => {
     if (!titleInput.value.trim()) return showToast('请填写标题哦');
     if (!selectedCategory) return showToast('请选择一个分类');
@@ -43,35 +45,34 @@ saveBtn.onclick = () => {
     titleInput.value = ''; contentInput.value = '';
     selectedCategory = "";
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    showToast('已保存');
+    showToast('保存成功');
 };
 
-// 列表显示逻辑
+// --- 列表展示逻辑 ---
 function showListByCategory(cat) {
     categorySection.style.display = 'none';
     readSection.style.display = 'block';
     document.getElementById('list-type-title').textContent = cat;
     
+    // 控制垃圾桶入口显示
+    const trashEntry = document.getElementById('trash-entry');
+    trashEntry.style.display = (cat === '日常') ? 'block' : 'none';
+    if(cat === '日常') setupClickToOpen(document.getElementById('trash-btn-box'), {id: 'trash'}, 50); // 10秒约50次
+
     const filteredNotes = notes.filter(n => n.category === cat);
     noteList.innerHTML = '';
     
-    if (filteredNotes.length === 0) {
-        noteList.innerHTML = '<p style="text-align:center; color:#999;">这里空空如也</p>';
-        return;
-    }
-
     filteredNotes.forEach(note => {
         const li = document.createElement('li');
-        if (cat === '不开心') {
+        if (cat === '不开心' || cat === '垃圾桶') {
             li.className = 'unhappy-item';
-            const timeOnly = note.createdAt.split(' ')[1] || note.createdAt;
+            const timeDisplay = cat === '不开心' ? (note.createdAt.split(' ')[1] || note.createdAt) : '已放逐的内容';
             li.innerHTML = `
                 <div class="hold-progress"></div>
-                <div class="note-item-header"><strong>🔒 封存的心情</strong></div>
-                <div class="note-time">⏰ ${timeOnly} (连续点击开启)</div>
+                <div class="note-item-header"><strong>🔒 ${cat === '不开心' ? '封存的心情' : '待处理的碎片'}</strong></div>
+                <div class="note-time">⏰ ${timeDisplay} (连续点击开启)</div>
             `;
-            // 设置点击5秒进入
-            setupClickToOpen(li, note, 25); // 约25次点击
+            setupClickToOpen(li, note, 25); // 5秒约25次
         } else {
             li.innerHTML = `
                 <div class="note-item-header">
@@ -85,100 +86,118 @@ function showListByCategory(cat) {
     });
 }
 
-// 狂点逻辑
+// --- 核心狂点逻辑 ---
 function setupClickToOpen(element, note, targetClicks) {
     const progressBg = element.querySelector('.hold-progress');
     let currentClicks = 0;
-    let decayTimer = null;
 
     element.onclick = (e) => {
+        e.preventDefault();
         currentClicks++;
         progressBg.style.width = (currentClicks / targetClicks) * 100 + '%';
 
-        // 停止之前的衰减
         if (decayTimer) clearInterval(decayTimer);
-        
-        // 开启自动回退
         decayTimer = setInterval(() => {
             if (currentClicks > 0) {
-                currentClicks -= 0.2;
+                currentClicks -= 0.3;
                 progressBg.style.width = (currentClicks / targetClicks) * 100 + '%';
-            } else {
-                clearInterval(decayTimer);
-            }
-        }, 100);
+            } else { clearInterval(decayTimer); }
+        }, 150);
 
         if (currentClicks >= targetClicks) {
             clearInterval(decayTimer);
             progressBg.style.width = '0%';
             currentClicks = 0;
-            showDetail(note.id);
+            if (note.id === 'trash') {
+                showListByCategory('垃圾桶');
+            } else {
+                showDetail(note.id);
+            }
         }
     };
 }
 
-// 详情页
+// --- 详情展示 ---
 function showDetail(id) {
     const note = notes.find(n => n.id === id);
     if (!note) return;
     
-    const detailCard = document.getElementById('note-detail');
     document.getElementById('detail-title').textContent = note.title;
     document.getElementById('detail-time').textContent = note.createdAt;
     document.getElementById('detail-content').textContent = note.content;
 
-    // 如果是“不开心”，显示销毁按钮，隐藏普通关闭按钮
-    const destroySection = `
-        <div class="destroy-group" style="display:flex; gap:10px; margin-top:15px;">
-            <button onclick="transferToTrash(${note.id}, '🔥')">🔥 烧掉</button>
-            <button onclick="transferToTrash(${note.id}, '🔨')">🔨 砸碎</button>
-            <button onclick="transferToTrash(${note.id}, '✂️')">✂️ 剪开</button>
-        </div>
-    `;
-    
+    const footer = document.getElementById('detail-footer');
+    footer.innerHTML = ''; // 清空按钮
+
     if (note.category === '不开心') {
-        document.getElementById('normal-close').style.display = 'none';
-        // 动态添加销毁组
-        let existingGroup = detailCard.querySelector('.destroy-group');
-        if (existingGroup) existingGroup.remove();
-        detailCard.insertAdjacentHTML('beforeend', destroySection);
+        footer.innerHTML = `
+            <div class="destroy-group" style="display:flex; gap:10px; margin-top:15px; width:100%;">
+                <button onclick="transferToTrash(${note.id}, '🔥')">🔥</button>
+                <button onclick="transferToTrash(${note.id}, '🔨')">🔨</button>
+                <button onclick="transferToTrash(${note.id}, '✂️')">✂️</button>
+            </div>
+        `;
+    } else if (note.category === '垃圾桶') {
+        footer.innerHTML = `<button onclick="finalDelete(${note.id})" style="background:red; width:100%; border-radius:50px; margin-top:15px;">彻底粉碎</button>`;
     } else {
-        document.getElementById('normal-close').style.display = 'block';
-        let existingGroup = detailCard.querySelector('.destroy-group');
-        if (existingGroup) existingGroup.remove();
+        footer.innerHTML = `<button class="close-btn" onclick="closeDetail()" style="margin-top:15px; width:100%;">关闭详情</button>`;
     }
-    
-    detailCard.style.display = 'block';
+    document.getElementById('note-detail').style.display = 'block';
 }
 
-// 转移到垃圾桶逻辑
+// --- 功能性逻辑 ---
+function closeDetail() {
+    document.getElementById('note-detail').style.display = 'none';
+    if (document.getElementById('list-type-title').textContent.includes('回顾')) {
+        readSection.style.display = 'none';
+        writeSection.style.display = 'block';
+    }
+}
+
 function transferToTrash(id, action) {
-    const noteIndex = notes.findIndex(n => n.id === id);
-    if (noteIndex !== -1) {
-        notes[noteIndex].category = '垃圾桶';
-        localStorage.setItem('my_notes', JSON.stringify(notes));
-        showToast('已将其 ' + action);
-        document.getElementById('note-detail').style.display = 'none';
-        showListByCategory('不开心');
-    }
+    const idx = notes.findIndex(n => n.id === id);
+    notes[idx].category = '垃圾桶';
+    localStorage.setItem('my_notes', JSON.stringify(notes));
+    showToast('已将其 ' + action);
+    document.getElementById('note-detail').style.display = 'none';
+    showListByCategory('不开心');
 }
 
-// 基础导航
-document.getElementById('view-list-btn').onclick = () => {
-    writeSection.style.display = 'none';
-    categorySection.style.display = 'block';
-};
-document.getElementById('back-to-write-from-cat').onclick = () => {
-    categorySection.style.display = 'none';
-    writeSection.style.display = 'block';
-};
-function backToCategory() {
-    readSection.style.display = 'none';
-    categorySection.style.display = 'block';
+function finalDelete(id) {
+    if(!confirm('彻底粉碎后无法找回，确定吗？')) return;
+    notes = notes.filter(n => n.id !== id);
+    localStorage.setItem('my_notes', JSON.stringify(notes));
+    document.getElementById('note-detail').style.display = 'none';
+    showListByCategory('垃圾桶');
+    showToast('已彻底粉碎');
 }
+
+// --- 导航按钮 ---
+document.getElementById('view-list-btn').onclick = () => { writeSection.style.display = 'none'; categorySection.style.display = 'block'; };
+document.getElementById('back-to-write-from-cat').onclick = () => { categorySection.style.display = 'none'; writeSection.style.display = 'block'; };
+function backToCategory() { readSection.style.display = 'none'; categorySection.style.display = 'block'; }
 function deleteNote(id) {
     if (!confirm('确定删除吗？')) return;
     notes = notes.filter(n => n.id !== id);
     localStorage.setItem('my_notes', JSON.stringify(notes));
     showListByCategory(document.getElementById('list-type-title').textContent);
 }
+
+// --- 开心推送 ---
+window.onload = () => {
+    const happy = notes.filter(n => n.category === '开心！');
+    if (happy.length > 0) {
+        const rand = happy[Math.floor(Math.random() * happy.length)];
+        document.getElementById('push-title').textContent = rand.title;
+        document.getElementById('push-time').textContent = rand.createdAt;
+        document.getElementById('push-modal').style.display = 'flex';
+        document.getElementById('push-view-btn').onclick = () => {
+            document.getElementById('push-modal').style.display = 'none';
+            writeSection.style.display = 'none';
+            readSection.style.display = 'block';
+            document.getElementById('list-type-title').textContent = '✨ 开心时刻回顾';
+            showDetail(rand.id);
+        };
+        document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
+    }
+};
