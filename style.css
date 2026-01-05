@@ -1,114 +1,71 @@
-/* 重置样式 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: "微软雅黑", sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; justify-content: center; align-items: center;
     padding: 20px;
 }
 
 .container {
     background: rgba(255, 255, 255, 0.98);
-    padding: 30px;
-    border-radius: 20px;
+    padding: 30px; border-radius: 20px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    width: 100%;
-    max-width: 400px;
-    max-height: 90vh; /* 防止手机端过长 */
-    overflow-y: auto; /* 内容多了可以滚动 */
+    width: 100%; max-width: 400px;
 }
 
-h1 { text-align: center; color: #4a5ab5; margin-bottom: 20px; }
+h1, h3 { text-align: center; color: #4a5ab5; margin-bottom: 20px; }
 
 input, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    outline: none;
-    font-family: inherit;
+    width: 100%; padding: 12px;
+    border: 1px solid #ddd; border-radius: 10px;
+    margin-bottom: 15px; outline: none;
 }
 
-.btn-group { display: flex; gap: 10px; margin-bottom: 5px; }
+.label-text { font-size: 14px; color: #666; margin-bottom: 10px; }
+
+/* 分类按钮样式 */
+.category-group, .cat-menu { display: flex; gap: 8px; margin-bottom: 15px; }
+.cat-menu { flex-direction: column; }
+
+.cat-btn, .cat-menu button {
+    background: #eee; color: #666; border: 2px solid transparent;
+}
+
+/* 选中状态 */
+.cat-btn.active { border-color: #667eea; background: #e0e7ff; color: #4a5ab5; }
+
+/* 详情按钮颜色区分 */
+.cat-menu button:nth-child(1) { background: #e8f5e9; color: #2e7d32; } /* 开心 */
+.cat-menu button:nth-child(2) { background: #f0f2ff; color: #4a5ab5; } /* 日常 */
+.cat-menu button:nth-child(3) { background: #fff1f0; color: #cf1322; } /* 不开心 */
+
+.btn-group { display: flex; gap: 10px; }
 
 button {
     flex: 1; padding: 12px;
     background: #667eea; color: white;
     border: none; border-radius: 10px;
     cursor: pointer; transition: 0.2s;
-    font-size: 14px;
 }
-
-button:active { transform: scale(0.95); }
 
 .alt-btn { background: #764ba2; }
 
-/* --- 列表卡片精修 --- */
-#note-list { list-style: none; margin-top: 15px; }
-
+/* 列表条目 */
 #note-list li {
-    background: #f0f2ff;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border-left: 5px solid #667eea;
+    background: #f9f9f9; padding: 15px;
+    border-radius: 12px; margin-bottom: 10px;
+    list-style: none; border-left: 5px solid #667eea;
 }
 
-.note-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* 垂直对齐 */
-    width: 100%;
-}
+.note-item-header { display: flex; justify-content: space-between; align-items: center; }
+.del-btn { width: 60px; height: 30px; background: #ff4d4d; font-size: 12px; border-radius: 6px; flex: none; }
+.note-time { font-size: 11px; color: #999; margin-top: 5px; }
 
-.note-item-header strong {
-    flex: 1;
-    font-size: 16px;
-    color: #333;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* 标题太长显示省略号 */
-    margin-right: 10px;
-}
-
-/* 重点修正：固定删除按钮大小 */
-.del-btn {
-    flex: none; /* 禁止伸缩 */
-    width: 60px; /* 固定宽度 */
-    height: 30px; /* 固定高度 */
-    padding: 0; /* 清除内边距干扰 */
-    background: #ff4d4d;
-    font-size: 12px;
-    line-height: 30px; /* 文字居中 */
-    border-radius: 6px;
-}
-
-.note-time { 
-    font-size: 11px; 
-    color: #888; 
-    display: flex;
-    align-items: center;
-}
-
-/* 提示框 */
 .toast {
-    position: fixed; top: 40px;
-    background: rgba(0,0,0,0.8); color: white;
-    padding: 10px 25px; border-radius: 25px;
-    display: none; z-index: 1000;
-    font-size: 14px;
+    position: fixed; top: 40px; background: rgba(0,0,0,0.8);
+    color: white; padding: 10px 20px; border-radius: 20px; display: none;
 }
 
-.detail-card {
-    margin-top: 15px; padding: 15px;
-    background: #fff; border: 1px solid #eee;
-    border-radius: 10px;
-}
+.detail-card { margin-top: 15px; padding: 15px; background: #fff; border: 1px solid #eee; border-radius: 10px; }
