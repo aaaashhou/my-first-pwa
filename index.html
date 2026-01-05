@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的分类笔记本</title>
+    <title>我的私密笔记本</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="toast" class="toast"></div>
 
     <div id="push-modal" class="modal-overlay" style="display: none;">
-    <div class="push-card">
-        <div class="push-header">✨ 回忆一下开心时刻</div>
-        <div class="push-body">
-            <h2 id="push-title"></h2>
-            <small id="push-time"></small>
-        </div>
-        <div class="push-footer">
-            <button id="push-view-btn">看看</button>
-            <button id="push-skip-btn" class="alt-btn">好的</button>
+        <div class="push-card">
+            <div class="push-header">✨ 回忆一下开心时刻</div>
+            <div class="push-body">
+                <h2 id="push-title"></h2>
+                <small id="push-time"></small>
+            </div>
+            <div class="push-footer">
+                <button id="push-view-btn">看看</button>
+                <button id="push-skip-btn" class="alt-btn">好的</button>
+            </div>
         </div>
     </div>
-</div>
 
     <div class="container">
         <h1>📝 我的笔记本</h1>
@@ -44,13 +44,13 @@
         </div>
 
         <div id="category-section" style="display: none;">
-            <h3>选择要查看的分类</h3>
+            <h3>选择分类</h3>
             <div class="cat-menu">
                 <button onclick="showListByCategory('开心！')">🌟 开心！</button>
                 <button onclick="showListByCategory('日常')">📅 日常</button>
                 <button onclick="showListByCategory('不开心')">☁️ 不开心</button>
             </div>
-            <button id="back-to-write-from-cat" class="alt-btn" style="margin-top:20px;">返回写入</button>
+            <button id="back-to-write-from-cat" class="alt-btn" style="margin-top:20px; width:100%;">返回写入</button>
         </div>
 
         <div id="read-section" style="display: none;">
@@ -58,20 +58,24 @@
             <div class="list-wrapper">
                 <ul id="note-list"></ul>
             </div>
-            <button onclick="backToCategory()" class="alt-btn">返回分类</button>
-            
-           <div id="note-detail" class="detail-card" style="display: none;">
-    <h2 id="detail-title"></h2>
-    <small id="detail-time"></small>
-    <p id="detail-content"></p>
-    
-    <button id="normal-close" class="close-btn" style="margin-top:10px;">关闭详情</button>
+            <div id="trash-entry" style="display:none; margin-top:20px; border-top:1px dashed #ccc; padding-top:10px;">
+                <div class="unhappy-item" id="trash-btn-box" style="background:#eee; text-align:center; padding:10px; border-radius:10px;">
+                    <div class="hold-progress"></div>
+                    <span style="position:relative; z-index:1;">🗑️ 垃圾桶 (连续点击10秒开启)</span>
+                </div>
+            </div>
+            <button onclick="backToCategory()" class="alt-btn" style="margin-top:20px; width:100%;">返回分类</button>
+        </div>
 
-    <div id="destroy-section" class="destroy-group" style="display: none;">
-        <button onclick="transferToTrash('🔥')">🔥 烧掉</button>
-        <button onclick="transferToTrash('🔨')">🔨 砸碎</button>
-        <button onclick="transferToTrash('✂️')">✂️ 剪开</button>
+        <div id="note-detail" class="detail-card" style="display: none;">
+            <h2 id="detail-title"></h2>
+            <small id="detail-time"></small>
+            <p id="detail-content" style="margin-top:10px; line-height:1.6;"></p>
+            <div id="detail-footer">
+                <button id="normal-close" class="close-btn" onclick="closeDetail()" style="margin-top:15px; width:100%;">关闭详情</button>
+            </div>
+        </div>
     </div>
-</div>
-
-
+    <script src="app.js"></script>
+</body>
+</html>
