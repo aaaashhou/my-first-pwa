@@ -111,3 +111,32 @@ function deleteNote(id) {
     showListByCategory(cat); // 刷新当前分类列表
     showToast('已删除');
 }
+
+// --- 开心推送逻辑 ---
+window.onload = () => {
+    const happyNotes = notes.filter(n => n.category === '开心！');
+    if (happyNotes.length > 0) {
+        // 随机选一条
+        const randomNote = happyNotes[Math.floor(Math.random() * happyNotes.length)];
+        
+        const modal = document.getElementById('push-modal');
+        document.getElementById('push-title').textContent = randomNote.title;
+        document.getElementById('push-time').textContent = randomNote.createdAt;
+        modal.style.display = 'flex';
+
+        // 点击“看看”
+        document.getElementById('push-view-btn').onclick = () => {
+            modal.style.display = 'none';
+            showDetail(randomNote.id); // 复用之前的详情展示函数
+            // 顺便切换到记录页面展示详情
+            writeSection.style.display = 'none';
+            readSection.style.display = 'block';
+            document.getElementById('list-type-title').textContent = '开心！ 的回顾';
+        };
+
+        // 点击“好的”
+        document.getElementById('push-skip-btn').onclick = () => {
+            modal.style.display = 'none';
+        };
+    }
+};
