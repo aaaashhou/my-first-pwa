@@ -99,6 +99,18 @@ function showDetail(id) {
     document.getElementById('detail-title').textContent = note.title;
     document.getElementById('detail-time').textContent = '分类: ' + note.category + ' | ' + note.createdAt;
     document.getElementById('detail-content').textContent = note.content || '（无具体内容）';
+    
+    // 关键改动：让关闭按钮知道该回哪
+    const closeBtn = document.querySelector('.close-btn');
+    closeBtn.onclick = () => {
+        document.getElementById('note-detail').style.display = 'none';
+        // 如果是从“开心推送”跳过来的，直接回主页
+        if (readSection.style.display === 'block' && document.getElementById('list-type-title').textContent.includes('回顾')) {
+            readSection.style.display = 'none';
+            writeSection.style.display = 'block';
+        }
+    };
+    
     document.getElementById('note-detail').style.display = 'block';
 }
 
@@ -140,3 +152,4 @@ window.onload = () => {
         };
     }
 };
+
