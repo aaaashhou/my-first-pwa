@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的笔记本</title>
+    <title>我的分类笔记本</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,18 +15,36 @@
         <div id="write-section">
             <input type="text" id="note-title" placeholder="标题（必填）">
             <textarea id="note-content" placeholder="内容（选填）" rows="5"></textarea>
-            <div class="btn-group">
+            
+            <p class="label-text">请选择分类：</p>
+            <div class="category-group">
+                <button class="cat-btn" data-cat="开心！">开心！</button>
+                <button class="cat-btn" data-cat="日常">日常</button>
+                <button class="cat-btn" data-cat="不开心">不开心</button>
+            </div>
+
+            <div class="btn-group" style="margin-top: 20px;">
                 <button id="save-btn">保存笔记</button>
                 <button id="view-list-btn" class="alt-btn">查看记录</button>
             </div>
         </div>
 
+        <div id="category-section" style="display: none;">
+            <h3>选择要查看的分类</h3>
+            <div class="cat-menu">
+                <button onclick="showListByCategory('开心！')">🌟 开心！</button>
+                <button onclick="showListByCategory('日常')">📅 日常</button>
+                <button onclick="showListByCategory('不开心')">☁️ 不开心</button>
+            </div>
+            <button id="back-to-write-from-cat" class="alt-btn" style="margin-top:20px;">返回写入</button>
+        </div>
+
         <div id="read-section" style="display: none;">
-            <h3>往期记录</h3>
+            <h3 id="list-type-title"></h3>
             <div class="list-wrapper">
                 <ul id="note-list"></ul>
             </div>
-            <button id="go-back-btn" class="alt-btn">返回写入</button>
+            <button onclick="backToCategory()" class="alt-btn">返回分类</button>
             
             <div id="note-detail" class="detail-card" style="display: none;">
                 <h2 id="detail-title"></h2>
