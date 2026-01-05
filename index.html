@@ -60,15 +60,18 @@
             </div>
             <button onclick="backToCategory()" class="alt-btn">返回分类</button>
             
-            <div id="note-detail" class="detail-card" style="display: none;">
-                <h2 id="detail-title"></h2>
-                <small id="detail-time"></small>
-                <p id="detail-content"></p>
-                <button class="close-btn" onclick="document.getElementById('note-detail').style.display='none'">关闭详情</button>
-            </div>
-        </div>
+           <div id="note-detail" class="detail-card" style="display: none;">
+    <h2 id="detail-title"></h2>
+    <small id="detail-time"></small>
+    <p id="detail-content"></p>
+    
+    <button id="normal-close" class="close-btn" style="margin-top:10px;">关闭详情</button>
+
+    <div id="destroy-section" class="destroy-group" style="display: none;">
+        <button onclick="transferToTrash('🔥')">🔥 烧掉</button>
+        <button onclick="transferToTrash('🔨')">🔨 砸碎</button>
+        <button onclick="transferToTrash('✂️')">✂️ 剪开</button>
     </div>
-    <script src="app.js"></script>
-</body>
-</html>
+</div>
+
 
