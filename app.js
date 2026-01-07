@@ -29,7 +29,10 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
 
 // --- 保存笔记 ---
 saveBtn.onclick = () => {
-    if (!titleInput.value.trim()) return showToast('请填写标题哦');
+    // 检查标题和内容是否都为空
+    if (!titleInput.value.trim() && !contentInput.value.trim()) {
+        return showToast('标题或内容总得写点什么吧');
+    }
     if (!selectedCategory) return showToast('请选择一个分类');
     
     const newNote = {
@@ -231,4 +234,5 @@ window.onload = () => {
         document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
     }
 };
+
 
