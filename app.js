@@ -70,7 +70,7 @@ saveBtn.onclick = () => {
         title: titleInput.value.trim(),
         content: contentInput.value.trim(),
         category: selectedCategory,
-        createdAt: new Date().toLocaleString()
+        createdAt: new Date().toLocaleString(),
         image: selectedImageData,
     };
     
@@ -117,7 +117,7 @@ function showListByCategory(cat) {
                     <button class="del-btn" onclick="deleteNote(${note.id})">删除</button>
                 </div>
                 <div class="note-time">📅 ${note.createdAt}</div>
-                
+                ${note.image<img src="${note.image}"style="max-width:100%;margin-top:10px;border-radius:8px;cursor:pointer;"onclick="showDetail(${note.id})">:"}
             `;
         }
         noteList.appendChild(li);
@@ -269,6 +269,7 @@ window.onload = () => {
         document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
     }
 };
+
 
 
 
