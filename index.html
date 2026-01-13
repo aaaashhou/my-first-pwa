@@ -28,6 +28,12 @@
 
         <div id="write-section">
             <input type="text" id="note-title" placeholder="标题（选填）">
+            <input type="file" id="image-input" accept="image/*" style="display:none;">
+<button type="button" id="add-image-btn">📷 添加图片</button>
+<div id="image-preview" style="margin-top:10px; display:none;">
+    <img id="preview-img" style="max-width:100%; border-radius:10px;">
+    <button type="button" id="remove-image-btn" style="margin-top:8px; background:#ff4d4d;">删除图片</button>
+</div>
             <textarea id="note-content" placeholder="内容（选填）" rows="5"></textarea>
             
             <p class="label-text">请选择分类：</p>
@@ -79,4 +85,5 @@
     <script src="app.js"></script>
 </body>
 </html>
+
 
