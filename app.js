@@ -32,6 +32,7 @@ removeImageBtn.onclick = () => {
     imagePreview.style.display = 'none';
     imageInput.value = '';
 };
+
 const noteList = document.getElementById('note-list');
 const toast = document.getElementById('toast');
 const writeSection = document.getElementById('write-section');
@@ -76,11 +77,12 @@ saveBtn.onclick = () => {
     
     notes.unshift(newNote);
     localStorage.setItem('my_notes', JSON.stringify(notes));
-    titleInput.value = ''; contentInput.value = '';
+    titleInput.value = ''; 
+    contentInput.value = '';
     selectedCategory = "";
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
     showToast('保存成功');
-selectedImageData = null;
+    selectedImageData = null;
     imagePreview.style.display = 'none';
     imageInput.value = '';
 };
@@ -94,7 +96,7 @@ function showListByCategory(cat) {
     // 控制垃圾桶入口显示
     const trashEntry = document.getElementById('trash-entry');
     trashEntry.style.display = (cat === '日常') ? 'block' : 'none';
-    if(cat === '日常') setupClickToOpen(document.getElementById('trash-btn-box'), {id: 'trash'}, 50); // 10秒约50次
+    if(cat === '日常') setupClickToOpen(document.getElementById('trash-btn-box'), {id: 'trash'}, 50);
 
     const filteredNotes = notes.filter(n => n.category === cat);
     noteList.innerHTML = '';
@@ -109,7 +111,7 @@ function showListByCategory(cat) {
                 <div class="note-item-header"><strong>🔒 ${cat === '不开心' ? '封存的心情' : '待处理的碎片'}</strong></div>
                 <div class="note-time">⏰ ${timeDisplay} (连续点击开启)</div>
             `;
-            setupClickToOpen(li, note, 25); // 5秒约25次
+            setupClickToOpen(li, note, 25);
         } else {
             li.innerHTML = `
                 <div class="note-item-header">
@@ -117,7 +119,7 @@ function showListByCategory(cat) {
                     <button class="del-btn" onclick="deleteNote(${note.id})">删除</button>
                 </div>
                 <div class="note-time">📅 ${note.createdAt}</div>
-              ${note.image ? `<img src="${note.image}" style="max-width:100%; margin-top:10px; border-radius:8px; cursor:pointer;" onclick="showDetail(${note.id})">` : ''}
+                ${note.image ? `<img src="${note.image}" style="max-width:100%; margin-top:10px; border-radius:8px; cursor:pointer;" onclick="showDetail(${note.id})">` : ''}
             `;
         }
         noteList.appendChild(li);
@@ -155,7 +157,7 @@ function setupClickToOpen(element, note, targetClicks) {
     };
 }
 
-// --- 详情展示（改为全屏并调整按钮逻辑） ---
+// --- 详情展示 ---
 function showDetail(id) {
     const note = notes.find(n => n.id === id);
     if (!note) return;
@@ -187,36 +189,34 @@ function showDetail(id) {
     } else {
         footer.innerHTML = `<button class="close-btn" onclick="closeDetail()" style="width:100%;">关闭详情</button>`;
     }
-    document.getElementById('note-detail').style.display = 'flex'; // 改为 flex 布局
+    document.getElementById('note-detail').style.display = 'flex';
 }
 
-// --- 转移并直接跳回主页 ---
+// --- 转移到垃圾桶 ---
 function transferToTrash(id, action) {
     const idx = notes.findIndex(n => n.id === id);
     notes[idx].category = '垃圾桶';
     localStorage.setItem('my_notes', JSON.stringify(notes));
     showToast('已将其 ' + action);
     
-    // 关键：销毁后直接关闭详情并回到写入主页
     document.getElementById('note-detail').style.display = 'none';
     readSection.style.display = 'none';
     writeSection.style.display = 'block';
 }
 
-// --- 粉碎并直接跳回主页 ---
+// --- 彻底删除 ---
 function finalDelete(id) {
     if(!confirm('彻底粉碎后无法找回，确定吗？')) return;
     notes = notes.filter(n => n.id !== id);
     localStorage.setItem('my_notes', JSON.stringify(notes));
     
-    // 关键：粉碎后直接关闭详情并回到写入主页
     document.getElementById('note-detail').style.display = 'none';
     readSection.style.display = 'none';
     writeSection.style.display = 'block';
     showToast('已彻底粉碎');
 }
 
-// --- 功能性逻辑 ---
+// --- 关闭详情 ---
 function closeDetail() {
     document.getElementById('note-detail').style.display = 'none';
     if (document.getElementById('list-type-title').textContent.includes('回顾')) {
@@ -226,9 +226,21 @@ function closeDetail() {
 }
 
 // --- 导航按钮 ---
-document.getElementById('view-list-btn').onclick = () => { writeSection.style.display = 'none'; categorySection.style.display = 'block'; };
-document.getElementById('back-to-write-from-cat').onclick = () => { categorySection.style.display = 'none'; writeSection.style.display = 'block'; };
-function backToCategory() { readSection.style.display = 'none'; categorySection.style.display = 'block'; }
+document.getElementById('view-list-btn').onclick = () => { 
+    writeSection.style.display = 'none'; 
+    categorySection.style.display = 'block'; 
+};
+
+document.getElementById('back-to-write-from-cat').onclick = () => { 
+    categorySection.style.display = 'none'; 
+    writeSection.style.display = 'block'; 
+};
+
+function backToCategory() { 
+    readSection.style.display = 'none'; 
+    categorySection.style.display = 'block'; 
+}
+
 function deleteNote(id) {
     if (!confirm('确定删除吗？')) return;
     notes = notes.filter(n => n.id !== id);
@@ -251,12 +263,8 @@ window.onload = () => {
             document.getElementById('list-type-title').textContent = '✨ 开心时刻回顾';
             showDetail(rand.id);
         };
-        document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
+        document.getElementById('push-skip-btn').onclick = () => { 
+            document.getElementById('push-modal').style.display = 'none'; 
+        };
     }
 };
-
-
-
-
-
-
