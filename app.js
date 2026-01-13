@@ -117,7 +117,7 @@ function showListByCategory(cat) {
                     <button class="del-btn" onclick="deleteNote(${note.id})">删除</button>
                 </div>
                 <div class="note-time">📅 ${note.createdAt}</div>
-                ${note.image<img src="${note.image}"style="max-width:100%;margin-top:10px;border-radius:8px;cursor:pointer;"onclick="showDetail(${note.id})">:"}
+              ${note.image ? `<img src="${note.image}" style="max-width:100%; margin-top:10px; border-radius:8px; cursor:pointer;" onclick="showDetail(${note.id})">` : ''}
             `;
         }
         noteList.appendChild(li);
@@ -225,24 +225,6 @@ function closeDetail() {
     }
 }
 
-function transferToTrash(id, action) {
-    const idx = notes.findIndex(n => n.id === id);
-    notes[idx].category = '垃圾桶';
-    localStorage.setItem('my_notes', JSON.stringify(notes));
-    showToast('已将其 ' + action);
-    document.getElementById('note-detail').style.display = 'none';
-    showListByCategory('不开心');
-}
-
-function finalDelete(id) {
-    if(!confirm('彻底粉碎后无法找回，确定吗？')) return;
-    notes = notes.filter(n => n.id !== id);
-    localStorage.setItem('my_notes', JSON.stringify(notes));
-    document.getElementById('note-detail').style.display = 'none';
-    showListByCategory('垃圾桶');
-    showToast('已彻底粉碎');
-}
-
 // --- 导航按钮 ---
 document.getElementById('view-list-btn').onclick = () => { writeSection.style.display = 'none'; categorySection.style.display = 'block'; };
 document.getElementById('back-to-write-from-cat').onclick = () => { categorySection.style.display = 'none'; writeSection.style.display = 'block'; };
@@ -272,6 +254,7 @@ window.onload = () => {
         document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
     }
 };
+
 
 
 
