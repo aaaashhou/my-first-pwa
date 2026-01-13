@@ -71,6 +71,7 @@ saveBtn.onclick = () => {
         content: contentInput.value.trim(),
         category: selectedCategory,
         createdAt: new Date().toLocaleString()
+        image: selectedImageData,
     };
     
     notes.unshift(newNote);
@@ -79,6 +80,9 @@ saveBtn.onclick = () => {
     selectedCategory = "";
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
     showToast('保存成功');
+selectedImageData = null;
+    imagePreview.style.display = 'none';
+    imageInput.value = '';
 };
 
 // --- 列表展示逻辑 ---
@@ -113,6 +117,7 @@ function showListByCategory(cat) {
                     <button class="del-btn" onclick="deleteNote(${note.id})">删除</button>
                 </div>
                 <div class="note-time">📅 ${note.createdAt}</div>
+                
             `;
         }
         noteList.appendChild(li);
@@ -264,5 +269,6 @@ window.onload = () => {
         document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
     }
 };
+
 
 
