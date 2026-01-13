@@ -2,6 +2,36 @@
 const titleInput = document.getElementById('note-title');
 const contentInput = document.getElementById('note-content');
 const saveBtn = document.getElementById('save-btn');
+const addImageBtn = document.getElementById('add-image-btn');
+const imageInput = document.getElementById('image-input');
+const removeImageBtn = document.getElementById('remove-image-btn');
+const imagePreview = document.getElementById('image-preview');
+const previewImg = document.getElementById('preview-img');
+
+let selectedImageData = null;
+
+addImageBtn.onclick = () => {
+    imageInput.click();
+};
+
+imageInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            selectedImageData = event.target.result;
+            previewImg.src = selectedImageData;
+            imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+removeImageBtn.onclick = () => {
+    selectedImageData = null;
+    imagePreview.style.display = 'none';
+    imageInput.value = '';
+};
 const noteList = document.getElementById('note-list');
 const toast = document.getElementById('toast');
 const writeSection = document.getElementById('write-section');
@@ -234,4 +264,5 @@ window.onload = () => {
         document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
     }
 };
+
 
