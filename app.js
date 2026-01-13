@@ -163,6 +163,9 @@ function showDetail(id) {
     document.getElementById('detail-title').textContent = note.title;
     document.getElementById('detail-time').textContent = note.createdAt;
     document.getElementById('detail-content').textContent = note.content;
+    if (note.image) {
+        document.getElementById('detail-content').innerHTML += `<br><img src="${note.image}" style="max-width:100%; margin-top:15px; border-radius:10px;">`;
+    }
 
     const footer = document.getElementById('detail-footer');
     footer.innerHTML = ''; 
@@ -269,6 +272,7 @@ window.onload = () => {
         document.getElementById('push-skip-btn').onclick = () => { document.getElementById('push-modal').style.display = 'none'; };
     }
 };
+
 
 
 
