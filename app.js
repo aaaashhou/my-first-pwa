@@ -223,6 +223,7 @@ function showTrashList() {
 // --- 详情展示 ---
 function showDetail(id) {
     const note = notes.find(n => n.id === id);
+    alert('showDetail 被调用！id=' + id + ', note=' + (note ? '找到' : '未找到'));
     if (!note) return;
     
     document.getElementById('detail-title').textContent = note.title;
@@ -376,6 +377,7 @@ window.onload = () => {
         };
     }
 };
+
 
 
 
