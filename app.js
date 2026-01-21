@@ -126,8 +126,8 @@ function showListByCategory(cat) {
             </div>
             <div class="note-time">📅 ${trash.disguiseTime}</div>
         `;
-        setupClickToOpen(trashLi, {id: 'trash_bin'}, 30); // 10秒约50次
-        noteList.appendChild(trashLi);
+setupClickToOpen(trashLi, {id: 'trash_bin'}, 30);
+        noteList.insertBefore(trashLi, noteList.firstChild); // 强制放在最前面
     }
     
     // --- 显示真实的笔记 ---
@@ -375,6 +375,7 @@ window.onload = () => {
         };
     }
 };
+
 
 
 
