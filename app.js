@@ -126,7 +126,7 @@ function showListByCategory(cat) {
             </div>
             <div class="note-time">📅 ${trash.disguiseTime}</div>
         `;
-        setupClickToOpen(trashLi, {id: 'trash_bin'}, 50); // 10秒约50次
+        setupClickToOpen(trashLi, {id: 'trash_bin'}, 30); // 10秒约50次
         noteList.appendChild(trashLi);
     }
     
@@ -378,5 +378,6 @@ window.onload = () => {
         };
     }
 };
+
 
 
