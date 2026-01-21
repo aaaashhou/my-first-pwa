@@ -168,31 +168,14 @@ function showListByCategory(cat) {
 function setupClickToOpen(element, note, targetClicks) {
     const progressBg = element.querySelector('.hold-progress');
     let currentClicks = 0;
-    let decayTimer = null;
     
     element.onclick = (e) => {
         e.preventDefault();
         currentClicks++;
         progressBg.style.width = (currentClicks / targetClicks) * 100 + '%';
         
-        // 清除旧的衰减计时器
-        if (decayTimer) clearInterval(decayTimer);
-        
-        // 只有停止点击 500ms 后才开始衰减
-        decayTimer = setTimeout(() => {
-            let decay = setInterval(() => {
-                if (currentClicks > 0) {
-                    currentClicks -= 0.2;
-                    progressBg.style.width = (currentClicks / targetClicks) * 100 + '%';
-                } else {
-                    clearInterval(decay);
-                }
-            }, 100);
-        }, 500);
-        
         // 检查是否达到目标
         if (currentClicks >= targetClicks) {
-            clearInterval(decayTimer);
             progressBg.style.width = '0%';
             currentClicks = 0;
             if (note.id === 'trash_bin') {
@@ -387,6 +370,7 @@ window.onload = () => {
         };
     }
 };
+
 
 
 
