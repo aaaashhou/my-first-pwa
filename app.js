@@ -214,6 +214,7 @@ function showTrashList() {
             <div class="note-item-header"><strong>🔒 封存的心情</strong></div>
             <div class="note-time">⏰ ${timeDisplay} (连续点击开启)</div>
         `;
+         console.log('创建垃圾桶记录:', note.id, 'hold-progress 是否存在:', li.querySelector('.hold-progress'));
         setupClickToOpen(li, note, 25); // 5秒约25次
         noteList.appendChild(li);
     });
@@ -375,6 +376,7 @@ window.onload = () => {
         };
     }
 };
+
 
 
 
