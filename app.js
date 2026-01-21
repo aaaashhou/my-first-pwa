@@ -174,13 +174,18 @@ function setupClickToOpen(element, note, targetClicks) {
         currentClicks++;
         progressBg.style.width = (currentClicks / targetClicks) * 100 + '%';
         
+        console.log('点击！currentClicks:', currentClicks, 'targetClicks:', targetClicks, 'note.id:', note.id);
+        
         // 检查是否达到目标
         if (currentClicks >= targetClicks) {
+            console.log('达到目标！触发 note.id:', note.id);
             progressBg.style.width = '0%';
             currentClicks = 0;
             if (note.id === 'trash_bin') {
+                console.log('进入 showTrashList');
                 showTrashList();
             } else {
+                console.log('进入 showDetail');
                 showDetail(note.id);
             }
         }
@@ -370,6 +375,7 @@ window.onload = () => {
         };
     }
 };
+
 
 
 
