@@ -89,6 +89,7 @@ function showScreen(screen) {
 }
 
 // ========== 开银逻辑 ==========
+console.log('正在绑定 setup-confirm-btn');
 document.getElementById('setup-confirm-btn').addEventListener('click', () => {
     const bagsTaken = parseInt(document.getElementById('setup-bags').value) || 0;
     if (bagsTaken === 0) {
