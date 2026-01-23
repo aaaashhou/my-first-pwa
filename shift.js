@@ -31,9 +31,15 @@ function bindAllEvents() {
     document.getElementById('btn-b').addEventListener('click', () => showScreen('detail-b'));
     document.getElementById('btn-c').addEventListener('click', () => showScreen('detail-c'));
     
-    // 下班按钮
-    document.getElementById('work-time').addEventListener('click', confirmLogout);
-    document.getElementById('logout-btn').addEventListener('click', confirmLogout);
+    // 下班按钮 - 修复：同时绑定两个元素
+    const workTime = document.getElementById('work-time');
+    const logoutBtn = document.getElementById('logout-btn');
+    if (workTime) {
+        workTime.addEventListener('click', confirmLogout);
+    }
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', confirmLogout);
+    }
     
     // 会员码切换
     document.getElementById('toggle-code-btn').addEventListener('click', toggleCode);
@@ -42,16 +48,15 @@ function bindAllEvents() {
     document.getElementById('edit-taken-btn').addEventListener('click', editTaken);
     document.getElementById('sell-one-btn').addEventListener('click', sellOne);
     
-    // C区按钮
-   console.log('绑定 entry-cash-btn:', document.getElementById('entry-cash-btn'));
-const entrycashbtn = document.getElementById('entry-cash-btn');
-if (entrycashbtn) {
-    entrycashbtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('钱箱按钮被点击了');
-        openCashModal('entry');
-    });
-}
+    // C区按钮 - 修复：确保按钮正确绑定
+    const entryCashBtn = document.getElementById('entry-cash-btn');
+    if (entryCashBtn) {
+        entryCashBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('打开钱箱按钮被点击');
+            openCashModal('entry');
+        });
+    }
     document.getElementById('entry-confirm-btn').addEventListener('click', confirmEntry);
     
     // 钱箱模态窗
@@ -62,8 +67,8 @@ if (entrycashbtn) {
     document.getElementById('edit-confirm').addEventListener('click', confirmEdit);
     document.getElementById('edit-cancel').addEventListener('click', cancelEdit);
     document.getElementById('edit-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') confirmEdit();
-});
+        if (e.key === 'Enter') confirmEdit();
+    });
     
     // 确认模态窗
     document.getElementById('confirm-yes').addEventListener('click', confirmYes);
@@ -190,6 +195,7 @@ function startWorkTime() {
 }
 
 function confirmLogout() {
+    console.log('confirmLogout 被调用');
     showConfirmModal('确认下班？', () => {
         clearInterval(workTimer);
         showScreen('summary');
@@ -282,8 +288,6 @@ function openCashModal(context) {
     console.log('openCashModal 被调用，context:', context);
     const modal = document.getElementById('cash-modal');
     const box = document.getElementById('cash-modal-box');
-    console.log('modal:', modal);
-    console.log('box:', box);
     
     box.innerHTML = '';
     DENOMINATIONS.forEach(denom => {
@@ -304,6 +308,7 @@ function openCashModal(context) {
     
     updateCashModalTotal();
     modal.style.display = 'flex';
+    console.log('钱箱模态窗已打开');
 }
 
 function updateCashModalTotal() {
@@ -374,16 +379,35 @@ function refreshCDetail() {
             <span class="record-time">${record.time}</span>
             <span class="record-content">¥${record.amount.toFixed(2)}</span>
             <div class="record-actions">
-                <button class="btn-edit" onclick="editCRecord(${idx})">编辑</button>
-                <button class="btn-delete" onclick="deleteCRecord(${idx})">删除</button>
+                <button class="btn-edit" data-idx="${idx}">编辑</button>
+                <button class="btn-delete" data-idx="${idx}">删除</button>
             </div>
         `;
         recordList.appendChild(li);
     });
+    
+    // 修复：重新绑定编辑和删除按钮
+    recordList.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const idx = parseInt(this.getAttribute('data-idx'));
+            editCRecord(idx);
+        });
+    });
+    
+    recordList.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const idx = parseInt(this.getAttribute('data-idx'));
+            deleteCRecord(idx);
+        });
+    });
 }
 
 function editCRecord(idx) {
-    // TODO: 编辑现金记录
+    const record = data.cashRecords[idx];
+    showEditModal('编辑金额', record.amount, function(newVal) {
+        data.cashRecords[idx].amount = newVal;
+        refreshCDetail();
+    });
 }
 
 function deleteCRecord(idx) {
@@ -490,7 +514,7 @@ function showEditModal(title, currentVal, callback) {
 }
 
 function confirmEdit() {
-    const newVal = parseInt(document.getElementById('edit-input').value);
+    const newVal = parseFloat(document.getElementById('edit-input').value);
     if (isNaN(newVal) || newVal < 0) {
         alert('请输入有效的数字');
         return;
