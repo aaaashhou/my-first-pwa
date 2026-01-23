@@ -211,14 +211,16 @@ function toggleCode() {
 
 // ========== B区 ==========
 function editTaken() {
-    showEditModal('编辑领取数量', data.bagsTaken, function(newVal) {
-        const increase = newVal - data.bagsTaken;
-        data.bagsTaken = newVal;
-        
-        if (increase > 0) {
-            const time = getCurrentTime();
-            data.bagRecords.push({ time, amount: increase });
+    showEditModal('新增领取购物袋', 0, function(newVal) {
+        if (newVal <= 0) {
+            alert('请输入有效数量');
+            return;
         }
+        
+        data.bagsTaken += newVal;  // 原来的总数加上新增的
+        
+        const time = getCurrentTime();
+        data.bagRecords.push({ time, amount: newVal });  // 记录新增
         
         refreshBDetail();
         updateBagBadge();
