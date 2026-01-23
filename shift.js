@@ -512,5 +512,11 @@ function showConfirm(text, callback) {
 }
 
 function attachEventListeners() {
+    // 确保事件绑定
+if (document.getElementById('setup-confirm-btn')) {
+    console.log('按钮找到了');
+} else {
+    console.log('按钮没找到！');
+}
     // 初始化完成
 }
