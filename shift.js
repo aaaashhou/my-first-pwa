@@ -282,6 +282,8 @@ function openCashModal(context) {
     console.log('openCashModal 被调用，context:', context);
     const modal = document.getElementById('cash-modal');
     const box = document.getElementById('cash-modal-box');
+    console.log('modal:', modal);
+    console.log('box:', box);
     
     box.innerHTML = '';
     DENOMINATIONS.forEach(denom => {
