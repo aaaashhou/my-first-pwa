@@ -43,7 +43,8 @@ function bindAllEvents() {
     document.getElementById('sell-one-btn').addEventListener('click', sellOne);
     
     // C区按钮
-    document.getElementById('entry-cash-btn').addEventListener('click', () => openCashModal('entry'));
+   console.log('绑定 entry-cash-btn:', document.getElementById('entry-cash-btn'));
+document.getElementById('entry-cash-btn').addEventListener('click', () => openCashModal('entry'));
     document.getElementById('entry-confirm-btn').addEventListener('click', confirmEntry);
     
     // 钱箱模态窗
