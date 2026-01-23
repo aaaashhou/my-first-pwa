@@ -495,10 +495,10 @@ function finalConfirm() {
 
 // ========== 导航 ==========
 function goBack() {
-    if (currentMode.startsWith('detail')) {
-        showScreen('work');
-    } else if (currentMode === 'details') {
+    if (currentMode === 'details') {
         showScreen('summary');
+    } else if (currentMode.startsWith('detail')) {
+        showScreen('work');
     } else if (currentMode === 'summary') {
         showScreen('work');
     }
