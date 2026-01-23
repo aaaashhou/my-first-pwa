@@ -222,8 +222,13 @@ function showTrashList() {
 
 // --- 详情展示 ---
 function showDetail(id) {
-    const note = notes.find(n => n.id === id);
-    alert('showDetail 被调用！id=' + id + ', note=' + (note ? '找到' : '未找到'));
+    let note = notes.find(n => n.id === id);
+    
+    // 如果在 notes 里找不到，就在垃圾桶里找
+    if (!note && trash && trash.trashedRecords.length > 0) {
+        note = trash.trashedRecords.find(n => n.id === id);
+    }
+    
     if (!note) return;
     
     document.getElementById('detail-title').textContent = note.title;
@@ -377,6 +382,7 @@ window.onload = () => {
         };
     }
 };
+
 
 
 
