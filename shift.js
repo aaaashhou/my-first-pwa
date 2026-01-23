@@ -272,6 +272,7 @@ function updateBagBadge() {
 
 // ========== C区 ==========
 function openCashModal(context) {
+    console.log('openCashModal 被调用，context:', context);
     const modal = document.getElementById('cash-modal');
     const box = document.getElementById('cash-modal-box');
     
