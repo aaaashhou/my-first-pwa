@@ -53,6 +53,9 @@ function bindAllEvents() {
     // 编辑模态窗
     document.getElementById('edit-confirm').addEventListener('click', confirmEdit);
     document.getElementById('edit-cancel').addEventListener('click', cancelEdit);
+    document.getElementById('edit-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') confirmEdit();
+});
     
     // 确认模态窗
     document.getElementById('confirm-yes').addEventListener('click', confirmYes);
