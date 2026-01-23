@@ -120,6 +120,7 @@ function showScreen(screen) {
         document.getElementById('work-section').style.display = 'block';
         currentMode = 'work';
         startWorkTime();
+        updateBagBadge();
     } else if (screen === 'detail-a') {
         document.getElementById('detail-a').style.display = 'block';
         currentMode = 'detail-a';
