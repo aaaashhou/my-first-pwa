@@ -499,6 +499,8 @@ function goBack() {
         showScreen('work');
     } else if (currentMode === 'details') {
         showScreen('summary');
+    } else if (currentMode === 'summary') {
+        showScreen('work');
     }
 }
 
