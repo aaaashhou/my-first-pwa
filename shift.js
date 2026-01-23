@@ -237,12 +237,12 @@ function sellOne() {
 
 function refreshBDetail() {
     const initialTaken = data.bagsTaken;
-const sold = data.bagRecords.reduce((sum, r) => sum + (r.amount < 0 ? Math.abs(r.amount) : 0), 0);
-const added = data.bagRecords.reduce((sum, r) => sum + (r.amount > 0 ? r.amount : 0), 0);
-const totalTaken = initialTaken + added;  // 初始领取 + 新增领取
-const remaining = totalTaken - sold;
+    const sold = data.bagRecords.reduce((sum, r) => sum + (r.amount < 0 ? Math.abs(r.amount) : 0), 0);
+    const added = data.bagRecords.reduce((sum, r) => sum + (r.amount > 0 ? r.amount : 0), 0);
+    const totalTaken = initialTaken + added;
+    const remaining = totalTaken - sold;
     
-    document.getElementById('b-taken').textContent = taken;
+    document.getElementById('b-taken').textContent = totalTaken;
     document.getElementById('b-sold').textContent = sold;
     document.getElementById('b-remaining').textContent = remaining;
     
