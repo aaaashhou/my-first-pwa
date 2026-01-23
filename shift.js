@@ -164,8 +164,9 @@ function confirmSetup() {
         return;
     }
     
-    data.bagsTaken = bagsTaken;
-    data.bagRecords = [];
+   data.bagsTaken = 0;  // 改成0，所有数量都通过记录累加
+const time = getCurrentTime();
+data.bagRecords = [{ time, amount: bagsTaken }];  // 把初始领取作为第一条记录
     
     const cashInputs = document.querySelectorAll('#setup-cash-box .cash-input');
     DENOMINATIONS.forEach((denom, idx) => {
