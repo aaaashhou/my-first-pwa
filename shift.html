@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班次管理</title>
+    <link rel="stylesheet" href="shift.css">
+</head>
+<body>
+    <!-- 开银界面 -->
+    <div id="setup-section" class="screen">
+        <h1>开银</h1>
+        
+        <div class="setup-item">
+            <label>B 领取购物袋数量：</label>
+            <input type="number" id="setup-bags" placeholder="输入数量" min="0">
+        </div>
+        
+        <div class="setup-item">
+            <label>C 领取备用金：</label>
+            <div id="setup-cash-box" class="cash-box">
+                <!-- 钱箱动态生成 -->
+            </div>
+            <div id="setup-cash-total">总计：¥0.00</div>
+        </div>
+        
+        <button id="setup-confirm-btn" class="btn-primary">确认进入上班</button>
+    </div>
 
+    <!-- 上班界面 -->
+    <div id="work-section" class="screen" style="display: none;">
+        <div class="work-header">
+            <span id="work-time">在岗 00:00</span>
+            <button id="logout-btn" class="btn-logout">下班</button>
+        </div>
+        
+        <div class="work-buttons">
+            <button class="work-btn" id="btn-a">
+                <span>A</span>
+                <span class="sub-text">会员码</span>
+            </button>
+            <button class="work-btn" id="btn-b">
+                <span>B</span>
+                <span class="sub-text">购物袋</span>
+                <span class="badge" id="bag-count">0</span>
+            </button>
+            <button class="work-btn" id="btn-c">
+                <span>C</span>
+                <span class="sub-text">现金记账</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- A区详情页 -->
+    <div id="detail-a" class="screen detail" style="display: none;">
+        <button class="btn-back">← 返回</button>
+        <h2>会员码</h2>
+        
+        <div class="code-display" id="code-display">
+            <div class="code-content">会员登陆码</div>
+        </div>
+        <button id="toggle-code-btn" class="btn-secondary">切换办卡码</button>
+    </div>
+
+    <!-- B区详情页 -->
+    <div id="detail-b" class="screen detail" style="display: none;">
+        <button class="btn-back">← 返回</button>
+        <h2>购物袋</h2>
+        
+        <div class="b-info">
+            <div class="info-item">
+                <span>领取数量：</span>
+                <span id="b-taken" class="editable-num">0</span>
+                <button id="edit-taken-btn" class="btn-small">编辑</button>
+            </div>
+            <div class="info-item">
+                <span>已售出：</span>
+                <span id="b-sold">0</span>
+            </div>
+            <div class="info-item">
+                <span>剩余数量：</span>
+                <span id="b-remaining" class="highlight">0</span>
+            </div>
+        </div>
+        
+        <button id="sell-one-btn" class="btn-primary">售出 -1</button>
+        
+        <h3>售出记录</h3>
+        <ul id="b-records" class="record-list">
+            <!-- 动态生成 -->
+        </ul>
+    </div>
+
+    <!-- C区详情页 -->
+    <div id="detail-c" class="screen detail" style="display: none;">
+        <button class="btn-back">← 返回</button>
+        <h2>现金记账</h2>
+        
+        <div class="cash-entry">
+            <h3>记账单元</h3>
+            <div class="entry-item">
+                <label>现金进账（元）：</label>
+                <input type="number" id="entry-amount" placeholder="输入金额" step="0.01" min="0">
+            </div>
+            
+            <div class="entry-item">
+                <label>实付/找零（选填）：</label>
+                <button id="entry-cash-btn" class="btn-secondary">打开钱箱</button>
+            </div>
+            
+            <div id="entry-status"></div>
+            <button id="entry-confirm-btn" class="btn-primary">确认记账</button>
+        </div>
+        
+        <h3>记账明细</h3>
+        <ul id="c-records" class="record-list">
+            <!-- 动态生成 -->
+        </ul>
+    </div>
+
+    <!-- 钱箱模态窗 -->
+    <div id="cash-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 id="cash-modal-title">钱箱</h3>
+            <div id="cash-modal-box" class="cash-box">
+                <!-- 动态生成 -->
+            </div>
+            <div id="cash-modal-total">总计：¥0.00</div>
+            <div class="modal-buttons">
+                <button id="cash-modal-confirm" class="btn-primary">确认</button>
+                <button id="cash-modal-close" class="btn-secondary">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑弹窗 -->
+    <div id="edit-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 id="edit-modal-title">编辑</h3>
+            <input type="number" id="edit-input" placeholder="输入数值" min="0">
+            <div class="modal-buttons">
+                <button id="edit-confirm" class="btn-primary">确认</button>
+                <button id="edit-cancel" class="btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认弹窗 -->
+    <div id="confirm-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 id="confirm-modal-title">确认</h3>
+            <p id="confirm-modal-text"></p>
+            <div class="modal-buttons">
+                <button id="confirm-yes" class="btn-primary">确认</button>
+                <button id="confirm-no" class="btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 结账汇总界面 -->
+    <div id="summary-section" class="screen" style="display: none;">
+        <h1>结账汇总</h1>
+        
+        <div class="summary-info">
+            <div class="summary-item">
+                <span>购物袋剩余：</span>
+                <span id="summary-bags">0</span> 个
+            </div>
+            <div class="summary-item">
+                <span>现金剩余：</span>
+                <span id="summary-cash">¥0.00</span>
+            </div>
+        </div>
+        
+        <button id="view-details-btn" class="btn-secondary">查看明细</button>
+        <button id="confirm-summary-btn" class="btn-primary">确认完成</button>
+    </div>
+
+    <!-- 明细汇总界面 -->
+    <div id="details-section" class="screen" style="display: none;">
+        <button class="btn-back">← 返回</button>
+        <h1>明细汇总</h1>
+        
+        <h3>购物袋明细</h3>
+        <ul id="details-b" class="record-list">
+            <!-- 动态生成 -->
+        </ul>
+        
+        <h3>现金明细</h3>
+        <ul id="details-c" class="record-list">
+            <!-- 动态生成 -->
+        </ul>
+    </div>
+
+    <script src="shift.js"></script>
+</body>
+</html>
