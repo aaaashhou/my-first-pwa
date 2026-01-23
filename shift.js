@@ -44,7 +44,14 @@ function bindAllEvents() {
     
     // C区按钮
    console.log('绑定 entry-cash-btn:', document.getElementById('entry-cash-btn'));
-document.getElementById('entry-cash-btn').addEventListener('click', () => openCashModal('entry'));
+const entrycashbtn = document.getElementById('entry-cash-btn');
+if (entrycashbtn) {
+    entrycashbtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('钱箱按钮被点击了');
+        openCashModal('entry');
+    });
+}
     document.getElementById('entry-confirm-btn').addEventListener('click', confirmEntry);
     
     // 钱箱模态窗
