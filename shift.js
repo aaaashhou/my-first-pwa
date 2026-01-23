@@ -245,7 +245,22 @@ function refreshBDetail() {
     document.getElementById('b-sold').textContent = sold;
     document.getElementById('b-remaining').textContent = remaining;
     
-    // 后面显示记录的部分不变
+    const recordList = document.getElementById('b-records');
+    recordList.innerHTML = '';
+    data.bagRecords.forEach((record, idx) => {
+        const li = document.createElement('li');
+        li.className = 'record-item';
+        const sign = record.amount > 0 ? '+' : '';
+        li.innerHTML = `
+            <span class="record-time">${record.time}</span>
+            <span class="record-content">${sign}${record.amount}</span>
+            <div class="record-actions">
+                <button class="btn-edit" onclick="editBRecord(${idx})">编辑</button>
+                <button class="btn-delete" onclick="deleteBRecord(${idx})">删除</button>
+            </div>
+        `;
+        recordList.appendChild(li);
+    });
 }
     
     const recordList = document.getElementById('b-records');
