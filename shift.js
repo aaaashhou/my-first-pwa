@@ -164,9 +164,8 @@ function confirmSetup() {
         return;
     }
     
-   data.bagsTaken = 0;  // 改成0，所有数量都通过记录累加
-const time = getCurrentTime();
-data.bagRecords = [{ time, amount: bagsTaken }];  // 把初始领取作为第一条记录
+  data.bagsTaken = bagsTaken;
+data.bagRecords = [];  // 记录是空的
     
     const cashInputs = document.querySelectorAll('#setup-cash-box .cash-input');
     DENOMINATIONS.forEach((denom, idx) => {
@@ -236,15 +235,18 @@ function sellOne() {
 }
 
 function refreshBDetail() {
-    const initialTaken = data.bagsTaken;
+    const initialTaken = data.bagsTaken;  // 初始领取（不变）
     const sold = data.bagRecords.reduce((sum, r) => sum + (r.amount < 0 ? Math.abs(r.amount) : 0), 0);
     const added = data.bagRecords.reduce((sum, r) => sum + (r.amount > 0 ? r.amount : 0), 0);
-    const totalTaken = initialTaken + added;
-    const remaining = totalTaken - sold;
+    const totalTaken = initialTaken + added;  // 初始 + 新增
+    const remaining = totalTaken - sold;  // 总领取 - 售出
     
     document.getElementById('b-taken').textContent = totalTaken;
     document.getElementById('b-sold').textContent = sold;
     document.getElementById('b-remaining').textContent = remaining;
+    
+    // 后面显示记录的部分不变
+}
     
     const recordList = document.getElementById('b-records');
     recordList.innerHTML = '';
