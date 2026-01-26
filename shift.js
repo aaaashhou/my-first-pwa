@@ -359,6 +359,20 @@ function confirmEntry() {
 function refreshCDetail() {
     const recordList = document.getElementById('c-records');
     recordList.innerHTML = '';
+    
+    // 先计算总计
+    let totalCash = 0;
+    data.cashRecords.forEach(record => {
+        totalCash += record.amount;
+    });
+    
+    // 在开头插入总计行
+    const liTotal = document.createElement('li');
+    liTotal.className = 'record-item';
+    liTotal.innerHTML = `<span class="record-content" style="font-weight:bold; color:#e74c3c;">总计：¥${totalCash.toFixed(2)}</span>`;
+    recordList.appendChild(liTotal);
+    
+    // 然后显示每条记录
     data.cashRecords.forEach((record, idx) => {
         const li = document.createElement('li');
         li.className = 'record-item';
@@ -373,7 +387,7 @@ function refreshCDetail() {
         recordList.appendChild(li);
     });
     
-    // 修复：重新绑定编辑和删除按钮
+    // 重新绑定按钮
     recordList.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', function() {
             const idx = parseInt(this.getAttribute('data-idx'));
