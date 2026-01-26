@@ -423,20 +423,14 @@ function refreshSummary() {
     const added = data.bagRecords.reduce((sum, r) => sum + (r.amount > 0 ? r.amount : 0), 0);
     const remaining = taken + added - sold;
     
-    let cashRemaining = 0;
-    DENOMINATIONS.forEach(denom => {
-        const taken = data.cashTaken[denom] || 0;
-        const spent = data.cashRecords.reduce((sum, record) => {
-            if (record.detail && record.detail[denom]) {
-                return sum + record.detail[denom];
-            }
-            return sum;
-        }, 0);
-        cashRemaining += (taken - spent) * parseFloat(denom);
+    // 现金总计 = 所有记账金额相加
+    let totalCash = 0;
+    data.cashRecords.forEach(record => {
+        totalCash += record.amount;
     });
     
     document.getElementById('summary-bags').textContent = remaining;
-    document.getElementById('summary-cash').textContent = `¥${cashRemaining.toFixed(2)}`;
+    document.getElementById('summary-cash').textContent = `¥${totalCash.toFixed(2)}`;
 }
 
 function refreshDetailsScreen() {
