@@ -347,26 +347,12 @@ function confirmEntry() {
         alert('请输入有效的金额');
         return;
     }
-    
-    let detail = null;
-    if (Object.keys(selectedCash).length > 0) {
-        const cashTotal = calcCashTotal(selectedCash);
-        if (Math.abs(cashTotal - amount) > 0.01) {
-            document.getElementById('entry-status').className = 'warning';
-            document.getElementById('entry-status').textContent = `⚠️ 钱箱总计(¥${cashTotal.toFixed(2)})与进账(¥${amount.toFixed(2)})不符！`;
-            return;
-        }
-        detail = { ...selectedCash };
-    }
-    
+     
     const time = getCurrentTime();
     data.cashRecords.push({ time, amount, detail });
     
     document.getElementById('entry-amount').value = '';
-    document.getElementById('entry-status').className = '';
-    document.getElementById('entry-status').textContent = '';
-    selectedCash = {};
-    
+  
     refreshCDetail();
 }
 
