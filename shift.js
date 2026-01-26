@@ -215,10 +215,8 @@ function editTaken() {
         if (newVal <= 0) {
             alert('请输入有效数量');
             return;
-        }
-        
-        data.bagsTaken += newVal;  // 原来的总数加上新增的
-        
+        }        
+       
         const time = getCurrentTime();
         data.bagRecords.push({ time, amount: newVal });  // 记录新增
         
