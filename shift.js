@@ -349,7 +349,7 @@ function confirmEntry() {
     }
      
     const time = getCurrentTime();
-    data.cashRecords.push({ time, amount, detail });
+    data.cashRecords.push({ time, amount });
     
     document.getElementById('entry-amount').value = '';
   
