@@ -1,4 +1,3 @@
-/* --- 基础重置 --- */
 * {
     margin: 0;
     padding: 0;
@@ -8,192 +7,332 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
     background: #f2f4f7;
-    padding: 12px;
-    color: #333;
+    padding: 8px;
 }
 
-/* --- 容器与通用 --- */
 .screen {
     display: none;
-    min-height: 95vh;
+    min-height: 100vh;
     background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    padding: 16px;
 }
 
 .screen.active {
     display: block;
 }
 
-h1, h2 {
+h1, h2, h3 {
     color: #003a8f;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     text-align: center;
     font-weight: 600;
 }
 
-/* 1. 开银：领取数量和备用金字体改为副标题程度 */
+/* 开银界面 */
+#setup-section {
+    display: block;
+}
+
+.setup-item {
+    margin-bottom: 16px;
+}
+
 .setup-item label {
     display: block;
-    margin-bottom: 8px;
-    font-size: 18px; /* 增大至副标题尺寸 */
-    font-weight: 600;
-    color: #003a8f;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
 }
 
 .setup-item input {
     width: 100%;
-    padding: 12px;
-    border: 1.5px solid #ccd3db;
-    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ccd3db;
+    border-radius: 6px;
     font-size: 16px;
 }
 
-/* --- 2. 上班界面：在岗和时间字体放大 --- */
+/* 钱箱 */
+.cash-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.cash-item label {
+    font-size: 12px;
+    color: #666;
+}
+
+.cash-item input {
+    padding: 8px;
+    border: 1px solid #ccd3db;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#setup-cash-total,
+#cash-modal-total {
+    text-align: right;
+    font-weight: 600;
+    color: #003a8f;
+    font-size: 18px;
+}
+
+/* 按钮 */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #003a8f;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.btn-secondary {
+    padding: 10px;
+    background: #e0e5eb;
+    color: #003a8f;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.btn-small {
+    padding: 6px 10px;
+    background: #003a8f;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.btn-back {
+    padding: 8px 12px;
+    background: #e0e5eb;
+    color: #003a8f;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.btn-logout {
+    padding: 8px 12px;
+    background: #c0392b;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* 上班界面 */
 .work-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 14px;
     background: #003a8f;
     color: #ffffff;
-    border-radius: 10px;
-    margin-bottom: 24px;
-    font-size: 28px; /* 显著放大 */
-    font-weight: bold;
-}
-
-/* --- 3. 核心显示区：会员码、购物袋、现金居中 --- */
-.code-display, 
-.info-item,
-.work-btn {
-    display: flex;
-    justify-content: center; /* 强制水平居中 */
-    align-items: center;
-    text-align: center;
-}
-
-.info-item {
-    flex-direction: column; /* 垂直排列以便居中 */
-    gap: 8px;
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-}
-
-/* 4. 会员码下方按键放大居中，与办卡大图位置对齐 */
-.btn-switch-code {
-    display: block;
-    margin: 24px auto; /* 自动左右居中 */
-    padding: 16px 0;
-    width: 85%; /* 放大宽度 */
-    font-size: 20px; /* 增大字号 */
-    font-weight: 600;
-    border-radius: 10px;
-    background: #003a8f;
-    color: #fff;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,58,143,0.2);
-}
-
-/* --- 5. 购物袋模块调整 --- */
-.editable-num {
-    font-size: 24px; /* 数量字号放大 */
-    font-weight: bold;
-    color: #003a8f;
-    margin-left: 8px;
-}
-
-.sold-minus {
-    font-size: 22px !important; /* 售出-1字体放大 */
-    padding: 10px 20px;
-}
-
-/* 售出记录标题小一点并远离上面的按钮 */
-.record-title {
-    font-size: 14px;
-    color: #666;
-    margin-top: 30px; /* 增加间距 */
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-/* 记录详情整体缩小 */
-.record-item {
-    font-size: 13px; /* 整体缩小以适合字号 */
-    padding: 8px 12px;
-    background: #f9f9f9;
     border-radius: 6px;
-    margin-bottom: 8px;
-}
-
-.bag-remaining {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px dashed #ccc;
-    font-size: 15px; /* 剩余数量单独起一行 */
-    color: #e67e22;
-    font-weight: 600;
-}
-
-/* --- 6. 记账单元调整 --- */
-.account-section {
-    margin-top: 32px; /* 整体往下移动，避免贴合 */
-}
-
-.btn-confirm-record {
-    margin-bottom: 20px; /* 确认按键与下方内容拉开距离 */
-    width: 100%;
-}
-
-.detail-content {
-    font-size: 12px; /* 明细内容详情缩小 */
-    color: #777;
-}
-
-/* --- 7. 结账汇总调整 --- */
-.btn-view-detail {
-    margin-top: -10px; /* 查看明细按键往上一点 */
     margin-bottom: 20px;
+    font-size: 22px;
 }
 
-/* --- 8. 现金明细调整 --- */
-.cash-detail-container {
+.work-buttons {
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
-.cash-total {
-    order: -1; /* 使用 order 属性强制排在最上面 */
-    background: #fffbe6;
-    padding: 15px;
-    border: 1px solid #ffe58f;
+.work-btn {
+    padding: 18px;
+    background: #f7f9fb;
+    border: 1px solid #ccd3db;
+    border-radius: 6px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.work-btn span:first-child {
+    font-size: 22px;
+    font-weight: 600;
+    color: #003a8f;
+}
+
+.sub-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.badge {
+    background: #ffcc00;
+    color: #003a8f;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 会员码 */
+.code-display {
+    background: #f7f9fb;
+    border: 2px dashed #003a8f;
+    padding: 32px;
+    border-radius: 6px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.code-content {
+    font-size: 20px;
+    font-weight: 600;
+    color: #003a8f;
+}
+
+/* 切换会员码按钮 */
+.btn-switch-code {
+    display: block;
+    margin: 16px auto 0 auto;
+    padding: 14px 0;
+    width: 60%;
+    font-size: 18px;
     border-radius: 8px;
-    font-size: 22px; /* 突出总计 */
-    font-weight: bold;
-    color: #d46b08;
-    text-align: center;
+    background: #003a8f;
+    color: #fff;
+}
+
+/* B区 */
+.b-info {
+    background: #f7f9fb;
+    padding: 14px;
+    border-radius: 6px;
     margin-bottom: 16px;
 }
 
-/* --- 按钮通用优化 --- */
-.btn-primary {
-    background: #003a8f;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccd3db;
 }
 
-.btn-secondary {
-    background: #e0e5eb;
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.editable-num {
+    font-size: 18px;
+    font-weight: 600;
     color: #003a8f;
-    border: none;
-    padding: 10px;
+}
+
+.highlight {
+    background: #ffcc00;
+    color: #003a8f;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* 记录 */
+.record-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: #ffffff;
+    border-left: 4px solid #003a8f;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.record-time {
+    font-weight: 600;
+    color: #003a8f;
+    min-width: 70px;
+}
+
+.record-content {
+    flex: 1;
+    margin-left: 10px;
+    color: #444;
+}
+
+/* 售出-1 按钮 */
+.record-item .sold-minus {
+    font-size: 18px;
+}
+
+/* 汇总 */
+.summary-info {
+    background: #f7f9fb;
+    padding: 16px;
     border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 16px;
+}
+
+.summary-item span:last-child {
+    font-weight: 600;
+    color: #003a8f;
+}
+
+/* 汇总按钮间距 */
+.summary-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+/* 模态窗 */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 360px;
+}
+
+.modal-content p,
+.modal-content button {
+    margin-bottom: 12px;
+}
+
+/* 购物袋明细剩余数量单独一行 */
+.bag-remaining {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+/* 现金明细总计放最上面 */
+.cash-total {
+    order: -1;
+    font-weight: 600;
+    font-size: 18px;
+    color: #003a8f;
+    margin-bottom: 12px;
 }
