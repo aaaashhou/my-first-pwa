@@ -12,12 +12,12 @@
         <h1>开银</h1>
         
         <div class="setup-item">
-            <label>B 领取购物袋数量：</label>
+            <label>领取购物袋数量：</label>
             <input type="number" id="setup-bags" placeholder="输入数量" min="0">
         </div>
         
         <div class="setup-item">
-            <label>C 领取备用金：</label>
+            <label>领取备用金：</label>
             <div id="setup-cash-box" class="cash-box">
                 <!-- 钱箱动态生成 -->
             </div>
@@ -56,9 +56,12 @@
         <button class="btn-back">← 返回</button>
         <h2>会员码</h2>
         
-        <div class="code-display" id="code-display">
-            <div class="code-content">会员登陆码</div>
-        </div>
+       <div class="code-display" id="code-display">
+    <img id="member-code-img"
+         src="./images/member-code.jpg"
+         alt="会员登陆码"
+         style="max-width:100%; max-height:100%; object-fit:contain;">
+</div>
         <button id="toggle-code-btn" class="btn-secondary">切换办卡码</button>
     </div>
 
