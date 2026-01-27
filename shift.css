@@ -196,9 +196,9 @@ h1, h2, h3 {
 /* 切换会员码按钮 */
 .btn-switch-code {
     display: block;
-    margin: 16px auto 0 auto;
-    padding: 14px 0;
-    width: 60%;
+    margin: 16px auto 0;
+    padding: 14px;
+    width: 100%;
     font-size: 18px;
     border-radius: 8px;
     background: #003a8f;
