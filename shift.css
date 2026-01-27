@@ -135,7 +135,7 @@ h1, h2, h3 {
     color: #ffffff;
     border-radius: 6px;
     margin-bottom: 20px;
-    font-size: 20px; /* 在岗和时间放大 */
+    font-size: 22px;
 }
 
 .work-buttons {
@@ -245,9 +245,9 @@ h1, h2, h3 {
     padding: 12px;
     background: #ffffff;
     border-left: 4px solid #003a8f;
-    margin-bottom: 12px; /* 与按钮保持距离 */
+    margin-bottom: 12px;
     border-radius: 4px;
-    font-size: 14px; /* 内容整体小一些 */
+    font-size: 14px;
 }
 
 .record-time {
@@ -318,7 +318,7 @@ h1, h2, h3 {
 
 .modal-content p,
 .modal-content button {
-    margin-bottom: 12px; /* 下班弹窗间距 */
+    margin-bottom: 12px;
 }
 
 /* 购物袋明细剩余数量单独一行 */
