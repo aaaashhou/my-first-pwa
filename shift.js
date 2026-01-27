@@ -557,3 +557,29 @@ function calcCashTotal(cashObj) {
     });
     return total;
 }
+
+// A 区会员码 / 办卡码切换
+(function () {
+    const toggleBtn = document.getElementById("toggle-code-btn");
+    const codeDisplay = document.getElementById("code-display");
+
+    if (!toggleBtn || !codeDisplay) return;
+
+    let showingSignup = false;
+
+    toggleBtn.addEventListener("click", function () {
+        const img = codeDisplay.querySelector("img");
+        if (!img) return;
+
+        if (showingSignup) {
+            img.src = "./images/member-code.jpg";
+            toggleBtn.textContent = "切换办卡码";
+        } else {
+            img.src = "./images/signup-code.jpg";
+            toggleBtn.textContent = "切换会员码";
+        }
+
+        showingSignup = !showingSignup;
+    });
+})();
+
