@@ -135,7 +135,7 @@ h1, h2, h3 {
     color: #ffffff;
     border-radius: 6px;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 20px; /* 在岗和时间放大 */
 }
 
 .work-buttons {
@@ -193,6 +193,18 @@ h1, h2, h3 {
     color: #003a8f;
 }
 
+/* 切换会员码按钮 */
+.btn-switch-code {
+    display: block;
+    margin: 16px auto 0 auto;
+    padding: 14px 0;
+    width: 60%;
+    font-size: 18px;
+    border-radius: 8px;
+    background: #003a8f;
+    color: #fff;
+}
+
 /* B区 */
 .b-info {
     background: #f7f9fb;
@@ -233,8 +245,9 @@ h1, h2, h3 {
     padding: 12px;
     background: #ffffff;
     border-left: 4px solid #003a8f;
-    margin-bottom: 8px;
+    margin-bottom: 12px; /* 与按钮保持距离 */
     border-radius: 4px;
+    font-size: 14px; /* 内容整体小一些 */
 }
 
 .record-time {
@@ -247,6 +260,11 @@ h1, h2, h3 {
     flex: 1;
     margin-left: 10px;
     color: #444;
+}
+
+/* 售出-1 按钮 */
+.record-item .sold-minus {
+    font-size: 18px;
 }
 
 /* 汇总 */
@@ -269,6 +287,13 @@ h1, h2, h3 {
     color: #003a8f;
 }
 
+/* 汇总按钮间距 */
+.summary-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
 /* 模态窗 */
 .modal {
     position: fixed;
@@ -289,4 +314,25 @@ h1, h2, h3 {
     border-radius: 8px;
     width: 90%;
     max-width: 360px;
+}
+
+.modal-content p,
+.modal-content button {
+    margin-bottom: 12px; /* 下班弹窗间距 */
+}
+
+/* 购物袋明细剩余数量单独一行 */
+.bag-remaining {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+/* 现金明细总计放最上面 */
+.cash-total {
+    order: -1;
+    font-weight: 600;
+    font-size: 18px;
+    color: #003a8f;
+    margin-bottom: 12px;
 }
