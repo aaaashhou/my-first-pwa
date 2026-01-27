@@ -204,9 +204,19 @@ function confirmLogout() {
 
 // ========== A区 ==========
 function toggleCode() {
-    currentCodeMode = currentCodeMode === 'login' ? 'qrcode' : 'login';
-    const text = currentCodeMode === 'login' ? '会员登陆码' : '办卡码';
-    document.querySelector('.code-content').textContent = text;
+    const img = document.getElementById('member-code-img');
+    
+    if (currentCodeMode === 'login') {
+        // 切换到办卡码
+        img.src = './images/signup-code.jpg';
+        img.alt = '办卡码';
+        currentCodeMode = 'qrcode';
+    } else {
+        // 切换回登陆码
+        img.src = './images/member-code.jpg';
+        img.alt = '会员登陆码';
+        currentCodeMode = 'login';
+    }
 }
 
 // ========== B区 ==========
