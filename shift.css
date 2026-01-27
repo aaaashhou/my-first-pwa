@@ -41,8 +41,8 @@ h1, h2, h3 {
 .setup-item label {
     display: block;
     margin-bottom: 6px;
-    font-size: 14px;
-    color: #444;
+    font-size: 18px;
+    color: #003a8f;
 }
 
 .setup-item input {
@@ -151,7 +151,7 @@ h1, h2, h3 {
     border-radius: 6px;
     font-size: 18px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -264,7 +264,7 @@ h1, h2, h3 {
 
 /* 售出-1 按钮 */
 .record-item .sold-minus {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 /* 汇总 */
