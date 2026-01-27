@@ -5,6 +5,9 @@
 }
 
 body {
+    font-family: "微软雅黑", sans-serif;
+    background: #f5f5f5;
+    padding: 10px;
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
     background: #f2f4f7;
     padding: 8px;
@@ -13,6 +16,10 @@ body {
 .screen {
     display: none;
     min-height: 100vh;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     background: #ffffff;
     border-radius: 8px;
     padding: 16px;
@@ -23,6 +30,8 @@ body {
 }
 
 h1, h2, h3 {
+    color: #333;
+    margin-bottom: 20px;
     color: #003a8f;
     margin-bottom: 16px;
     text-align: center;
@@ -35,11 +44,15 @@ h1, h2, h3 {
 }
 
 .setup-item {
+    margin-bottom: 20px;
     margin-bottom: 16px;
 }
 
 .setup-item label {
     display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
     margin-bottom: 6px;
     font-size: 14px;
     color: #444;
@@ -48,80 +61,133 @@ h1, h2, h3 {
 .setup-item input {
     width: 100%;
     padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     border: 1px solid #ccd3db;
     border-radius: 6px;
     font-size: 16px;
 }
 
+/* 钱箱样式 */
 /* 钱箱 */
 .cash-box {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.cash-item {
+    display: flex;
+    align-items: center;
     gap: 8px;
     margin-bottom: 8px;
 }
 
 .cash-item label {
     font-size: 12px;
+    min-width: 40px;
     color: #666;
 }
 
 .cash-item input {
+    flex: 1;
     padding: 8px;
+    border: 1px solid #ddd;
     border: 1px solid #ccd3db;
     border-radius: 4px;
     font-size: 14px;
 }
 
+#setup-cash-total, #cash-modal-total {
 #setup-cash-total,
 #cash-modal-total {
     text-align: right;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 15px;
     font-weight: 600;
     color: #003a8f;
     font-size: 18px;
 }
 
+/* 按钮样式 */
 /* 按钮 */
 .btn-primary {
     width: 100%;
     padding: 12px;
+    background: #3498db;
+    color: white;
     background: #003a8f;
     color: #ffffff;
     border: none;
+    border-radius: 5px;
     border-radius: 6px;
     font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.btn-primary:active {
+    background: #2980b9;
 }
 
 .btn-secondary {
+    padding: 10px 15px;
+    background: #95a5a6;
+    color: white;
     padding: 10px;
     background: #e0e5eb;
     color: #003a8f;
     border: none;
+    border-radius: 5px;
     border-radius: 6px;
     font-size: 14px;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.btn-secondary:active {
+    background: #7f8c8d;
 }
 
 .btn-small {
+    padding: 5px 10px;
+    background: #27ae60;
+    color: white;
+    border: none;
     padding: 6px 10px;
     background: #003a8f;
     color: #ffffff;
     border-radius: 4px;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .btn-back {
+    padding: 8px 15px;
+    background: #34495e;
+    color: white;
+    border: none;
     padding: 8px 12px;
     background: #e0e5eb;
     color: #003a8f;
     border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 15px;
     margin-bottom: 12px;
 }
 
 .btn-logout {
+    padding: 8px 15px;
+    background: #e74c3c;
+    color: white;
+    border: none;
     padding: 8px 12px;
     background: #c0392b;
     color: #ffffff;
     border-radius: 4px;
+    cursor: pointer;
     font-size: 14px;
 }
 
@@ -130,32 +196,54 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 15px;
+    background: #3498db;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
     padding: 14px;
     background: #003a8f;
     color: #ffffff;
     border-radius: 6px;
     margin-bottom: 20px;
-    font-size: 20px; /* 在岗和时间放大 */
+    font-size: 16px;
 }
 
 .work-buttons {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     gap: 12px;
 }
 
 .work-btn {
+    padding: 20px;
+    background: #ecf0f1;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
     padding: 18px;
     background: #f7f9fb;
     border: 1px solid #ccd3db;
     border-radius: 6px;
     font-size: 18px;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+}
+
+.work-btn:active {
+    background: #d5dbdb;
 }
 
 .work-btn span:first-child {
+    font-weight: bold;
+    font-size: 24px;
+    color: #2c3e50;
     font-size: 22px;
     font-weight: 600;
     color: #003a8f;
@@ -163,25 +251,36 @@ h1, h2, h3 {
 
 .sub-text {
     font-size: 14px;
+    color: #7f8c8d;
+    margin-left: 10px;
     color: #666;
 }
 
 .badge {
+    background: #e74c3c;
+    color: white;
     background: #ffcc00;
     color: #003a8f;
     padding: 4px 10px;
     border-radius: 12px;
     font-size: 14px;
+    font-weight: bold;
     font-weight: 600;
 }
 
 /* 会员码 */
 .code-display {
+    background: #f8f9fa;
+    border: 2px dashed #3498db;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
     background: #f7f9fb;
     border: 2px dashed #003a8f;
     padding: 32px;
     border-radius: 6px;
     margin: 20px 0;
+    min-height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -189,24 +288,19 @@ h1, h2, h3 {
 
 .code-content {
     font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
     font-weight: 600;
     color: #003a8f;
 }
 
-/* 切换会员码按钮 */
-.btn-switch-code {
-    display: block;
-    margin: 16px auto 0 auto;
-    padding: 14px 0;
-    width: 60%;
-    font-size: 18px;
-    border-radius: 8px;
-    background: #003a8f;
-    color: #fff;
-}
-
+/* B区信息 */
 /* B区 */
 .b-info {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
     background: #f7f9fb;
     padding: 14px;
     border-radius: 6px;
@@ -216,7 +310,9 @@ h1, h2, h3 {
 .info-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 0;
+    border-bottom: 1px solid #bdc3c7;
     border-bottom: 1px solid #ccd3db;
 }
 
@@ -225,16 +321,30 @@ h1, h2, h3 {
 }
 
 .editable-num {
+    font-weight: bold;
+    color: #2980b9;
     font-size: 18px;
+    cursor: pointer;
     font-weight: 600;
     color: #003a8f;
 }
 
 .highlight {
+    background: #f39c12;
+    color: white;
+    padding: 5px 10px;
     background: #ffcc00;
     color: #003a8f;
     padding: 4px 8px;
     border-radius: 4px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* 记录列表 */
+.record-list {
+    list-style: none;
+    padding: 0;
     font-weight: 600;
 }
 
@@ -242,15 +352,25 @@ h1, h2, h3 {
 .record-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 12px;
+    background: #f9f9f9;
+    border-left: 4px solid #3498db;
+    margin-bottom: 10px;
     background: #ffffff;
     border-left: 4px solid #003a8f;
-    margin-bottom: 12px; /* 与按钮保持距离 */
+    margin-bottom: 8px;
     border-radius: 4px;
-    font-size: 14px; /* 内容整体小一些 */
+}
+
+.record-item:hover {
+    background: #ecf0f1;
 }
 
 .record-time {
+    font-weight: bold;
+    color: #2c3e50;
+    min-width: 80px;
     font-weight: 600;
     color: #003a8f;
     min-width: 70px;
@@ -258,17 +378,42 @@ h1, h2, h3 {
 
 .record-content {
     flex: 1;
+    margin-left: 15px;
+    color: #555;
+}
+
+.record-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-edit {
+    background: #3498db;
+    color: white;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
     margin-left: 10px;
     color: #444;
 }
 
-/* 售出-1 按钮 */
-.record-item .sold-minus {
-    font-size: 18px;
-}
-
+/* 摘要界面 */
 /* 汇总 */
 .summary-info {
+    background: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
     background: #f7f9fb;
     padding: 16px;
     border-radius: 6px;
@@ -278,25 +423,35 @@ h1, h2, h3 {
 .summary-item {
     display: flex;
     justify-content: space-between;
+    padding: 15px 0;
+    font-size: 18px;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
     padding: 12px 0;
     font-size: 16px;
 }
 
 .summary-item span:last-child {
+    font-weight: bold;
+    color: #e74c3c;
     font-weight: 600;
     color: #003a8f;
 }
 
-/* 汇总按钮间距 */
-.summary-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-}
-
+/* 模态窗 - 修复：去掉 !important */
 /* 模态窗 */
 .modal {
+    display: none;
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
     inset: 0;
     background: rgba(0,0,0,0.45);
     display: none;
@@ -309,30 +464,77 @@ h1, h2, h3 {
 }
 
 .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 85%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 {
+    margin-bottom: 15px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#edit-modal input,
+#confirm-modal p {
+    margin-bottom: 15px;
+}
+
+#confirm-modal p {
+    text-align: center;
+    color: #555;
+    font-size: 16px;
+}
+
+/* 入账状态 */
+#entry-status {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+}
+
+#entry-status.warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+    display: block;
+}
+
+#entry-status.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
     background: #ffffff;
     padding: 16px;
     border-radius: 8px;
     width: 90%;
     max-width: 360px;
-}
-
-.modal-content p,
-.modal-content button {
-    margin-bottom: 12px; /* 下班弹窗间距 */
-}
-
-/* 购物袋明细剩余数量单独一行 */
-.bag-remaining {
-    display: block;
-    margin-top: 8px;
-    font-size: 14px;
-}
-
-/* 现金明细总计放最上面 */
-.cash-total {
-    order: -1;
-    font-weight: 600;
-    font-size: 18px;
-    color: #003a8f;
-    margin-bottom: 12px;
-}
