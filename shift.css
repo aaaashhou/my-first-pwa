@@ -205,6 +205,11 @@ h1, h2, h3 {
     color: #fff;
 }
 
+#toggle-code-btn {
+    margin: 12px auto 0 !important;
+    width: 100% !important;
+}
+
 /* B区 */
 .b-info {
     background: #f7f9fb;
